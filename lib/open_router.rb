@@ -3,14 +3,22 @@
 require "faraday"
 require "faraday/multipart"
 
+module OpenRouter
+  class Error < StandardError; end
+  class ConfigurationError < Error; end
+end
+
 require_relative "open_router/http"
+require_relative "open_router/tool"
+require_relative "open_router/tool_call"
+require_relative "open_router/schema"
+require_relative "open_router/response"
+require_relative "open_router/model_registry"
+require_relative "open_router/model_selector"
 require_relative "open_router/client"
 require_relative "open_router/version"
 
 module OpenRouter
-  class Error < StandardError; end
-  class ConfigurationError < Error; end
-
   class Configuration
     attr_writer :access_token
     attr_accessor :api_version, :extra_headers, :faraday_config, :log_errors, :request_timeout, :uri_base

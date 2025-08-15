@@ -1,0 +1,185 @@
+# frozen_string_literal: true
+
+module OpenRouter
+  class Tool
+    attr_reader :type, :function
+
+    def initialize(definition = {})
+      if definition.is_a?(Hash) && definition.key?(:function)
+        @type = definition[:type] || "function"
+        @function = definition[:function]
+      elsif definition.is_a?(Hash)
+        @type = "function"
+        @function = definition
+      else
+        raise ArgumentError, "Tool definition must be a hash"
+      end
+
+      validate_definition!
+    end
+
+    # Class method for defining tools with a DSL
+    def self.define(&block)
+      builder = ToolBuilder.new
+      builder.instance_eval(&block) if block_given?
+      new(builder.to_h)
+    end
+
+    def to_h
+      {
+        type: @type,
+        function: @function
+      }
+    end
+
+    def to_json(*args)
+      to_h.to_json(*args)
+    end
+
+    def name
+      @function[:name]
+    end
+
+    def description
+      @function[:description]
+    end
+
+    def parameters
+      @function[:parameters]
+    end
+
+    private
+
+    def validate_definition!
+      raise ArgumentError, "Function must have a name" unless @function[:name]
+      raise ArgumentError, "Function must have a description" unless @function[:description]
+      raise ArgumentError, "Function parameters must be an object" if @function[:parameters] && @function[:parameters][:type] != "object"
+    end
+
+    # Internal class for building tool definitions with DSL
+    class ToolBuilder
+      def initialize
+        @definition = {
+          name: nil,
+          description: nil,
+          parameters: {
+            type: "object",
+            properties: {},
+            required: []
+          }
+        }
+      end
+
+      def name(value)
+        @definition[:name] = value
+      end
+
+      def description(value)
+        @definition[:description] = value
+      end
+
+      def parameters(&block)
+        param_builder = ParametersBuilder.new(@definition[:parameters])
+        param_builder.instance_eval(&block) if block_given?
+      end
+
+      def to_h
+        @definition
+      end
+    end
+
+    # Internal class for building parameter schemas
+    class ParametersBuilder
+      def initialize(params_hash)
+        @params = params_hash
+      end
+
+      def string(name, required: false, description: nil, **options)
+        add_property(name, { type: "string", description: }.merge(options).compact)
+        mark_required(name) if required
+      end
+
+      def integer(name, required: false, description: nil, **options)
+        add_property(name, { type: "integer", description: }.merge(options).compact)
+        mark_required(name) if required
+      end
+
+      def number(name, required: false, description: nil, **options)
+        add_property(name, { type: "number", description: }.merge(options).compact)
+        mark_required(name) if required
+      end
+
+      def boolean(name, required: false, description: nil, **options)
+        add_property(name, { type: "boolean", description: }.merge(options).compact)
+        mark_required(name) if required
+      end
+
+      def array(name, required: false, description: nil, &block)
+        array_def = { type: "array", description: }.compact
+
+        if block_given?
+          items_builder = ItemsBuilder.new
+          items_builder.instance_eval(&block)
+          array_def[:items] = items_builder.to_h
+        end
+
+        add_property(name, array_def)
+        mark_required(name) if required
+      end
+
+      def object(name, required: false, description: nil, &block)
+        object_def = {
+          type: "object",
+          description:,
+          properties: {},
+          required: []
+        }.compact
+
+        if block_given?
+          object_builder = ParametersBuilder.new(object_def)
+          object_builder.instance_eval(&block)
+        end
+
+        add_property(name, object_def)
+        mark_required(name) if required
+      end
+
+      private
+
+      def add_property(name, definition)
+        @params[:properties][name] = definition
+      end
+
+      def mark_required(name)
+        @params[:required] << name unless @params[:required].include?(name)
+      end
+    end
+
+    # Internal class for building array items
+    class ItemsBuilder
+      def initialize
+        @items = {}
+      end
+
+      def string(description: nil, **options)
+        @items = { type: "string", description: }.merge(options).compact
+      end
+
+      def integer(description: nil, **options)
+        @items = { type: "integer", description: }.merge(options).compact
+      end
+
+      def number(description: nil, **options)
+        @items = { type: "number", description: }.merge(options).compact
+      end
+
+      def boolean(description: nil, **options)
+        @items = { type: "boolean", description: }.merge(options).compact
+      end
+
+      def to_h
+        @items
+      end
+    end
+  end
+end
