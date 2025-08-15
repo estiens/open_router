@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'open_router'
 require 'vcr'
 require 'webmock/rspec'
 
@@ -19,9 +20,17 @@ RSpec.configure do |config|
 
   # Configure VCR
   config.around(:each, :vcr) do |example|
-    name = example.metadata[:vcr][:cassette_name] || example.description
-    VCR.use_cassette(name, example.metadata[:vcr]) do
-      example.run
+    vcr_options = example.metadata[:vcr]
+    if vcr_options.is_a?(Hash)
+      name = vcr_options.delete(:cassette_name) || example.description.downcase.gsub(/\s+/, '_')
+      VCR.use_cassette(name, vcr_options) do
+        example.run
+      end
+    else
+      name = example.description.downcase.gsub(/\s+/, '_')
+      VCR.use_cassette(name) do
+        example.run
+      end
     end
   end
 end
