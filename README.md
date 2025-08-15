@@ -1,36 +1,30 @@
-# OpenRouter Ruby Gem - Enhanced Edition
+# OpenRouter Enhanced - Ruby Gem
 
 The future will bring us hundreds of language models and dozens of providers for each. How will you choose the best?
 
 The [OpenRouter API](https://openrouter.ai/docs) is a single unified interface for all LLMs! And now you can easily use it with Ruby! 🤖🌌
 
-This is an enhanced fork of the original OpenRouter Ruby gem that adds advanced AI application development features while maintaining full backward compatibility.
+**OpenRouter Enhanced** is an advanced fork of the [original OpenRouter Ruby gem](https://github.com/OlympiaAI/open_router) by [Obie Fernandez](https://github.com/obie) that adds comprehensive AI application development features including tool calling, structured outputs, intelligent model selection, and automatic response healing—all while maintaining full backward compatibility.
 
-## Features
+## Enhanced Features
+
+This fork extends the original OpenRouter gem with enterprise-grade AI development capabilities:
+
+- **Tool Calling**: Full support for OpenRouter's function calling API with Ruby-idiomatic DSL for tool definitions
+- **Structured Outputs**: JSON Schema validation with automatic healing for non-native models and Ruby DSL for schema definitions  
+- **Smart Model Selection**: Intelligent model selection with fluent DSL for cost optimization, capability requirements, and provider preferences
+- **Model Registry**: Local caching and querying of OpenRouter model data with capability detection
+- **Enhanced Response Handling**: Rich Response objects with automatic parsing for tool calls and structured outputs
+- **Automatic Healing**: Self-healing responses for malformed JSON from models that don't natively support structured outputs
+- **Model Fallbacks**: Automatic failover between models with graceful degradation
+- **Comprehensive Testing**: VCR-based integration tests with real API interactions
+- **Backward Compatible**: All existing code continues to work unchanged
 
 ### Core OpenRouter Benefits
+
 - **Prioritize price or performance**: OpenRouter scouts for the lowest prices and best latencies/throughputs across dozens of providers, and lets you choose how to prioritize them.
 - **Standardized API**: No need to change your code when switching between models or providers. You can even let users choose and pay for their own.
 - **Easy integration**: This Ruby gem provides a simple and intuitive interface to interact with the OpenRouter API, making it effortless to integrate AI capabilities into your Ruby applications.
-
-### ✨ Enhanced Features (This Fork)
-
-- **🛠️ Tool Calling**: Full support for OpenRouter's function calling API with Ruby-idiomatic DSL for tool definitions
-- **📋 Structured Outputs**: JSON Schema validation with automatic healing for non-native models and Ruby DSL for schema definitions  
-- **🎯 Smart Model Selection**: Intelligent model selection with fluent DSL for cost optimization, capability requirements, and provider preferences
-- **📊 Model Registry**: Local caching and querying of OpenRouter model data with capability detection
-- **🔄 Enhanced Response Handling**: Rich Response objects with automatic parsing for tool calls and structured outputs
-- **🔧 Automatic Healing**: Self-healing responses for malformed JSON from models that don't natively support structured outputs
-- **⚡ Model Fallbacks**: Automatic failover between models with graceful degradation
-- **🔍 Comprehensive Testing**: VCR-based integration tests with real API interactions
-- **✅ Backward Compatible**: All existing code continues to work unchanged
-
-👬 This Ruby library was originally bootstrapped from the [🤖 Anthropic](https://github.com/alexrudall/anthropic) gem by Alex Rudall, and subsequently extracted from the codebase of my fast-growing AI startup called [Olympia](https://olympia.chat?utm_source=open_router_gem&utm_medium=github) that lets you add AI-powered consultants to your startup!
-
-🚢 Need someone to develop AI software for you using modern Ruby on Rails? My other company Magma Labs does exactly that: [magmalabs.io](https://www.magmalabs.io/?utm_source=open_router_gem&utm_medium=github). In fact, we also sell off-the-shelf solutions based on my early work on the field, via a platform called [MagmaChat](https://magmachat.ai?utm_source=open_router_gem&utm_medium=github)
-
-
-[🐦 Olympia's Twitter](https://twitter.com/OlympiaChat) | [🐦 Obie's Twitter](https://twitter.com/OlympiaChat) | [🎮 Ruby AI Builders Discord](https://discord.gg/k4Uc224xVD)
 
 ## Table of Contents
 
@@ -61,7 +55,7 @@ This is an enhanced fork of the original OpenRouter Ruby gem that adds advanced 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "open_router"
+gem "open_router_enhanced"
 ```
 
 And then execute:
@@ -75,7 +69,7 @@ bundle install
 Or install it directly:
 
 ```bash
-gem install open_router
+gem install open_router_enhanced
 ```
 
 And require it in your code:
@@ -616,12 +610,14 @@ end
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/OlympiaAI/open_router>. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/OlympiaAI/open_router/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/estiens/open_router>. 
+
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
 ### Development Setup
 
 ```bash
-git clone https://github.com/OlympiaAI/open_router.git
+git clone https://github.com/estiens/open_router.git
 cd open_router
 bundle install
 bundle exec rspec
@@ -639,6 +635,28 @@ ruby -I lib examples/structured_outputs_example.rb
 ruby -I lib examples/model_selection_example.rb
 ```
 
+## Acknowledgments
+
+This enhanced fork builds upon the excellent foundation laid by [Obie Fernandez](https://github.com/obie) and the original OpenRouter Ruby gem. The original library was bootstrapped from the [Anthropic gem](https://github.com/alexrudall/anthropic) by [Alex Rudall](https://github.com/alexrudall) and extracted from the codebase of [Olympia](https://olympia.chat), Obie's AI startup.
+
+We extend our heartfelt gratitude to:
+
+- **Obie Fernandez** - Original OpenRouter gem author and visionary
+- **Alex Rudall** - Creator of the Anthropic gem that served as the foundation
+- **The OpenRouter Team** - For creating an amazing unified AI API
+- **The Ruby Community** - For continuous support and contributions
+
+## Maintainer
+
+This enhanced fork is maintained by:
+
+**Eric Stiens**
+- Email: hello@ericstiens.dev
+- Website: [ericstiens.dev](http://ericstiens.dev)
+- GitHub: [@estiens](https://github.com/estiens)
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+MIT License is chosen for maximum permissiveness and compatibility, allowing unrestricted use, modification, and distribution while maintaining attribution requirements.

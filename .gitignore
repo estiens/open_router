@@ -256,3 +256,4 @@ jspm_packages/
 # Test results
 test_results.json
 test_results.xml
+.tool_versions

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    open_router (0.3.3)
+    open_router_enhanced (1.1.0)
       activesupport (>= 6.0)
       dotenv (>= 2)
       faraday (>= 1)
@@ -126,7 +126,7 @@ DEPENDENCIES
   activesupport (>= 6.0)
   dotenv (>= 2)
   json-schema
-  open_router!
+  open_router_enhanced!
   pry (>= 0.14)
   rake (~> 13.0)
   rspec (~> 3.0)
