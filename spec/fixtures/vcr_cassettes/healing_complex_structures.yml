@@ -1,0 +1,202 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"Analyze these items and provide
+        a summary with data:\n- Apple (score: 0.95)\n- Banana (score: 0.87)\n- Cherry
+        (score: 0.92)\n\nCreate a complex analysis JSON with nested objects and arrays.\nInclude
+        a summary and data object with items array and valid boolean.\n\nHere''s a
+        confusing example with bad syntax: {\"data\": {\"items\": [{\"name\": Apple,
+        score: 0.95}], \"valid\": true}}\nBut make YOUR response syntactically correct
+        JSON.\n"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"analysis","strict":true,"schema":{"type":"object","properties":{"summary":{"type":"string","description":"Brief
+        summary"},"data":{"type":"object","properties":{"items":{"type":"array","description":"List
+        of items","items":{"type":"object","properties":{"name":{"type":"string"},"score":{"type":"number"}},"required":["name","score"]}},"valid":{"type":"boolean"}},"required":["items","valid"],"description":"Analysis
+        data"}},"required":["summary","data"]}}},"max_tokens":500,"temperature":0.5}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 17:28:25 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 96fa68796985a3e4-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\n  \"error\":
+        {\n    \"message\": \"Invalid schema for response_format ''analysis'': In
+        context=(), ''additionalProperties'' is required to be supplied and to be
+        false.\",\n    \"type\": \"invalid_request_error\",\n    \"param\": \"response_format\",\n    \"code\":
+        null\n  }\n}","provider_name":"Azure"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
+  recorded_at: Fri, 15 Aug 2025 17:28:25 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"Analyze these items and provide
+        a summary with data:\n- Apple (score: 0.95)\n- Banana (score: 0.87)\n- Cherry
+        (score: 0.92)\n\nCreate a complex analysis JSON with nested objects and arrays.\nInclude
+        a summary and data object with items array and valid boolean.\n\nHere''s a
+        confusing example with bad syntax: {\"data\": {\"items\": [{\"name\": Apple,
+        score: 0.95}], \"valid\": true}}\nBut make YOUR response syntactically correct
+        JSON.\n"}],"model":"openai/gpt-4o-2024-08-06","response_format":{"type":"json_schema","json_schema":{"name":"analysis","strict":true,"schema":{"type":"object","properties":{"summary":{"type":"string","description":"Brief
+        summary"},"data":{"type":"object","properties":{"items":{"type":"array","description":"List
+        of items","items":{"type":"object","properties":{"name":{"type":"string"},"score":{"type":"number"}},"required":["name","score"]}},"valid":{"type":"boolean"}},"required":["items","valid"],"description":"Analysis
+        data","additionalProperties":false}},"required":["summary","data"],"additionalProperties":false}}},"max_tokens":500,"temperature":0.5}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 17:41:12 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 96fa7b3c6c5e6165-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\n  \"error\":
+        {\n    \"message\": \"Invalid schema for response_format ''analysis'': In
+        context=(''properties'', ''data'', ''properties'', ''items'', ''items''),
+        ''additionalProperties'' is required to be supplied and to be false.\",\n    \"type\":
+        \"invalid_request_error\",\n    \"param\": \"response_format\",\n    \"code\":
+        null\n  }\n}","provider_name":"OpenAI"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
+  recorded_at: Fri, 15 Aug 2025 17:41:12 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"Analyze these items and provide
+        a summary with data:\n- Apple (score: 0.95)\n- Banana (score: 0.87)\n- Cherry
+        (score: 0.92)\n\nCreate a complex analysis JSON with nested objects and arrays.\nInclude
+        a summary and data object with items array and valid boolean.\n\nHere''s a
+        confusing example with bad syntax: {\"data\": {\"items\": [{\"name\": Apple,
+        score: 0.95}], \"valid\": true}}\nBut make YOUR response syntactically correct
+        JSON.\n"}],"model":"openai/gpt-4o-2024-08-06","response_format":{"type":"json_schema","json_schema":{"name":"analysis","strict":true,"schema":{"type":"object","properties":{"summary":{"type":"string","description":"Brief
+        summary"},"data":{"type":"object","properties":{"items":{"type":"array","description":"List
+        of items","items":{"type":"object","properties":{"name":{"type":"string"},"score":{"type":"number"}},"required":["name","score"],"additionalProperties":false}},"valid":{"type":"boolean"}},"required":["items","valid"],"description":"Analysis
+        data","additionalProperties":false}},"required":["summary","data"],"additionalProperties":false}}},"max_tokens":500,"temperature":0.5}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 18:38:21 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96facef2ae0ca218-MSP
+    body:
+      encoding: ASCII-8BIT
+      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
+        \        \n\n         \n{\"id\":\"gen-1755283100-DNq2YVL2KnpNEjUUZmV4\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-2024-08-06\",\"object\":\"chat.completion\",\"created\":1755283100,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"summary\\\":\\\"The
+        analysis reveals that all items have high scores, indicating positive attributes
+        or performance. Apple leads with the highest score, closely followed by Cherry
+        and Banana.\\\",\\\"data\\\":{\\\"items\\\":[{\\\"name\\\":\\\"Apple\\\",\\\"score\\\":0.95},{\\\"name\\\":\\\"Banana\\\",\\\"score\\\":0.87},{\\\"name\\\":\\\"Cherry\\\",\\\"score\\\":0.92}],\\\"valid\\\":true}}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_80956533cb\",\"usage\":{\"prompt_tokens\":201,\"completion_tokens\":74,\"total_tokens\":275,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Fri, 15 Aug 2025 18:38:23 GMT
+recorded_with: VCR 6.3.1

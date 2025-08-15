@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Ruby library for OpenRouter API."
   spec.homepage = "https://github.com/OlympiaAI/open_router"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.2.2"
+  spec.required_ruby_version = ">= 3.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/OlympiaAI/open_router"
@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dotenv", ">= 2"
   spec.add_dependency "faraday", ">= 1"
   spec.add_dependency "faraday-multipart", ">= 1"
+  spec.add_dependency "json-schema", "~> 4.0"
 end

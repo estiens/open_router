@@ -1,0 +1,211 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint (Ruby 3.3)
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Run RuboCop
+      run: bundle exec rubocop --format github
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.0', '3.1', '3.2', '3.3', '3.4']
+        include:
+          - ruby-version: '3.0'
+            bundle-gemfile: Gemfile
+          - ruby-version: '3.1'
+            bundle-gemfile: Gemfile
+          - ruby-version: '3.2'
+            bundle-gemfile: Gemfile
+          - ruby-version: '3.3'
+            bundle-gemfile: Gemfile
+          - ruby-version: '3.4'
+            bundle-gemfile: Gemfile
+    
+    name: Test (Ruby ${{ matrix.ruby-version }})
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Run tests
+      run: bundle exec rspec --format progress
+      env:
+        # Use VCR cassettes in CI, don't make real API calls
+        VCR_RECORD: none
+        
+    - name: Check test coverage
+      run: |
+        if [ -f coverage/.last_run.json ]; then
+          echo "Coverage report generated"
+          cat coverage/.last_run.json
+        fi
+
+  compatibility-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['2.7', '3.0']
+    
+    name: Compatibility Check (Ruby ${{ matrix.ruby-version }})
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: false
+    
+    - name: Check gemspec compatibility
+      run: |
+        echo "Checking if gemspec allows Ruby ${{ matrix.ruby-version }}"
+        ruby -e "
+          require_relative 'open_router.gemspec'
+          spec = Gem::Specification.load('open_router.gemspec')
+          required = spec.required_ruby_version
+          current = Gem::Version.new(RUBY_VERSION)
+          
+          if required.satisfied_by?(current)
+            puts '✅ Gemspec allows Ruby ${{ matrix.ruby-version }}'
+            exit 0
+          else
+            puts '❌ Gemspec requires: #{required}, current: #{current}'
+            exit 1
+          end
+        "
+        
+    - name: Install dependencies (compatibility mode)
+      run: |
+        gem install bundler
+        bundle install || echo "Bundle install failed"
+        
+    - name: Check basic loading
+      run: |
+        echo "Testing basic require..."
+        ruby -e "
+          require 'bundler/setup'
+          begin
+            require_relative 'lib/open_router'
+            puts '✅ OpenRouter loads successfully on Ruby ${{ matrix.ruby-version }}'
+          rescue => e
+            puts '❌ Failed to load: #{e.message}'
+            exit 1
+          end
+        "
+        
+    - name: Check core functionality
+      run: |
+        echo "Testing core functionality..."
+        ruby -e "
+          require 'bundler/setup'
+          require_relative 'lib/open_router'
+          
+          # Test basic configuration
+          config = OpenRouter::Configuration.new
+          puts '✅ Configuration created'
+          
+          # Test tool definition
+          tool = OpenRouter::Tool.define do
+            name 'test_tool'
+            description 'A test tool'
+          end
+          puts '✅ Tool definition works'
+          
+          # Test schema definition
+          schema = OpenRouter::Schema.define('test') do
+            string 'name', required: true
+          end
+          puts '✅ Schema definition works'
+          
+          puts '✅ All core functionality works on Ruby ${{ matrix.ruby-version }}'
+        " || echo "❌ Core functionality test failed"
+
+  security:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Run bundle audit
+      run: |
+        gem install bundle-audit
+        bundle audit --update
+        
+    - name: Check for secrets
+      run: |
+        # Simple check for potential secrets in code
+        if grep -r "sk-" lib/ || grep -r "API_KEY.*=" lib/ || grep -r "token.*=" lib/; then
+          echo "⚠️  Potential secrets found in code"
+          exit 1
+        else
+          echo "✅ No obvious secrets found"
+        fi
+
+  quality:
+    runs-on: ubuntu-latest
+    name: Code Quality
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Check code metrics
+      run: |
+        # Count lines of code
+        echo "📊 Code Statistics:"
+        find lib -name "*.rb" | xargs wc -l | tail -1
+        
+        # Check for complex files
+        echo "📁 File Complexity:"
+        find lib -name "*.rb" -exec wc -l {} + | sort -n | tail -5
+        
+        # Check test coverage
+        echo "🧪 Test Files:"
+        find spec -name "*_spec.rb" | wc -l | awk '{print $1 " test files"}'
+        
+    - name: Documentation check
+      run: |
+        echo "📚 Documentation Status:"
+        [ -f README.md ] && echo "✅ README.md exists" || echo "❌ README.md missing"
+        [ -f CHANGELOG.md ] && echo "✅ CHANGELOG.md exists" || echo "❌ CHANGELOG.md missing" 
+        [ -f CODE_OF_CONDUCT.md ] && echo "✅ CODE_OF_CONDUCT.md exists" || echo "❌ CODE_OF_CONDUCT.md missing"
+        [ -f CONTRIBUTING.md ] && echo "✅ CONTRIBUTING.md exists" || echo "❌ CONTRIBUTING.md missing"

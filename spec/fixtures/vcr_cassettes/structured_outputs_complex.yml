@@ -1,0 +1,226 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"Analyze the text ''Ruby is a
+        programming language'' and provide detailed analysis"},{"role":"system","content":"Please
+        format your output as a JSON value that conforms to the following JSON Schema
+        specification:\n\n{\"name\":\"analysis_result\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"summary\":{\"type\":\"string\",\"description\":\"Summary
+        of the analysis\"},\"details\":{\"type\":\"object\",\"properties\":{\"category\":{\"type\":\"string\",\"description\":\"Category
+        of analysis\"},\"confidence\":{\"type\":\"number\",\"description\":\"Confidence
+        score 0-1\"},\"keywords\":{\"type\":\"array\",\"description\":\"Relevant keywords\",\"items\":{\"type\":\"string\",\"description\":\"Individual
+        keyword\"}}},\"required\":[\"category\",\"confidence\"],\"description\":\"Detailed
+        analysis\",\"additionalProperties\":false},\"requires_followup\":{\"type\":\"boolean\",\"description\":\"Whether
+        followup is needed\"}},\"required\":[\"summary\",\"details\",\"requires_followup\"],\"additionalProperties\":false}}\n\nYour
+        response should be valid JSON that matches this schema structure exactly.\n\nexample
+        format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
+        guidelines:\n- Ensure all required fields match the schema\n- Use proper JSON
+        formatting (no trailing commas)  \n- Return ONLY the JSON - no other text
+        or explanations\n"}],"model":"openai/gpt-4o-mini","max_tokens":1000}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 20:37:04 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96fb7cde5b3d0cde-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
+        \        \n{\"id\":\"gen-1755290224-ZDFmDCzwaH8xNHL1Z116\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755290224,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\n
+        \ \\\"summary\\\": \\\"Ruby is a widely-used programming language known for
+        its simplicity and productivity.\\\",\\n  \\\"details\\\": {\\n    \\\"category\\\":
+        \\\"Programming Language\\\",\\n    \\\"confidence\\\": 0.95,\\n    \\\"keywords\\\":
+        [\\n      \\\"Ruby\\\",\\n      \\\"programming\\\",\\n      \\\"language\\\",\\n
+        \     \\\"simplicity\\\",\\n      \\\"productivity\\\"\\n    ]\\n  },\\n  \\\"requires_followup\\\":
+        false\\n}\\n```\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":256,\"completion_tokens\":87,\"total_tokens\":343,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Fri, 15 Aug 2025 20:37:07 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"The following response contains
+        explanatory text and JSON that needs to be extracted and fixed to conform
+        to the provided schema.\n\nValidation Errors:\nInvalid JSON: unexpected token
+        at ''```json\n{\n  \"summary\": \"Ruby is a widely-used programming language
+        known for its simplicity and productivity.\",\n  \"details\": {\n    \"category\":
+        \"Programming Language\",\n    \"confidence\": 0.95,\n    \"keywords\": [\n      \"Ruby\",\n      \"programming\",\n      \"language\",\n      \"simplicity\",\n      \"productivity\"\n    ]\n  },\n  \"requires_followup\":
+        false\n}\n```''\n\nOriginal Response Content:\n```json\n{\n  \"summary\":
+        \"Ruby is a widely-used programming language known for its simplicity and
+        productivity.\",\n  \"details\": {\n    \"category\": \"Programming Language\",\n    \"confidence\":
+        0.95,\n    \"keywords\": [\n      \"Ruby\",\n      \"programming\",\n      \"language\",\n      \"simplicity\",\n      \"productivity\"\n    ]\n  },\n  \"requires_followup\":
+        false\n}\n```\n\nRequired JSON Schema:\n```json\n{\"name\":\"analysis_result\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"summary\":{\"type\":\"string\",\"description\":\"Summary
+        of the analysis\"},\"details\":{\"type\":\"object\",\"properties\":{\"category\":{\"type\":\"string\",\"description\":\"Category
+        of analysis\"},\"confidence\":{\"type\":\"number\",\"description\":\"Confidence
+        score 0-1\"},\"keywords\":{\"type\":\"array\",\"description\":\"Relevant keywords\",\"items\":{\"type\":\"string\",\"description\":\"Individual
+        keyword\"}}},\"required\":[\"category\",\"confidence\"],\"description\":\"Detailed
+        analysis\",\"additionalProperties\":false},\"requires_followup\":{\"type\":\"boolean\",\"description\":\"Whether
+        followup is needed\"}},\"required\":[\"summary\",\"details\",\"requires_followup\"],\"additionalProperties\":false}}\n```\n\nPlease
+        extract and correct the JSON from the response above to produce a valid JSON
+        object that strictly conforms to the schema.\nReturn ONLY the fixed, raw JSON
+        object, without any surrounding text or explanations.\n"}],"model":"openai/gpt-4o-mini","max_tokens":2000,"temperature":0}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 20:38:47 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96fb7f6189f67a5f-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: "\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1755290327-mle2xKlX8csxmgZaVPmT\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755290327,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
+        \ \\\"summary\\\": \\\"Ruby is a widely-used programming language known for
+        its simplicity and productivity.\\\",\\n  \\\"details\\\": {\\n    \\\"category\\\":
+        \\\"Programming Language\\\",\\n    \\\"confidence\\\": 0.95,\\n    \\\"keywords\\\":
+        [\\n      \\\"Ruby\\\",\\n      \\\"programming\\\",\\n      \\\"language\\\",\\n
+        \     \\\"simplicity\\\",\\n      \\\"productivity\\\"\\n    ]\\n  },\\n  \\\"requires_followup\\\":
+        false\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":409,\"completion_tokens\":83,\"total_tokens\":492,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Fri, 15 Aug 2025 20:38:49 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"Analyze the text ''Ruby is a
+        programming language'' and provide detailed analysis"},{"role":"system","content":"Please
+        format your output as a JSON value that conforms to the following JSON Schema
+        specification:\n\n{\"name\":\"analysis_result\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"summary\":{\"type\":\"string\",\"description\":\"Summary
+        of the analysis\"},\"details\":{\"type\":\"object\",\"properties\":{\"category\":{\"type\":\"string\",\"description\":\"Category
+        of analysis\"},\"confidence\":{\"type\":\"number\",\"description\":\"Confidence
+        score 0-1\"},\"keywords\":{\"type\":\"array\",\"description\":\"Relevant keywords\",\"items\":{\"type\":\"string\",\"description\":\"Individual
+        keyword\"}}},\"required\":[\"category\",\"confidence\"],\"description\":\"Detailed
+        analysis\",\"additionalProperties\":false},\"requires_followup\":{\"type\":\"boolean\",\"description\":\"Whether
+        followup is needed\"}},\"required\":[\"summary\",\"details\",\"requires_followup\"],\"additionalProperties\":false}}\n\nYour
+        response should be valid JSON that matches this schema structure exactly.\n\nexample
+        format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
+        guidelines:\n- Ensure all required fields match the schema\n- Use proper JSON
+        formatting (no trailing commas)\n- Return ONLY the JSON - no other text or
+        explanations\n"}],"model":"openai/gpt-4o-mini","max_tokens":1000}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 21:24:04 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96fbc1b5b94f1134-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: "\n         \n\n         \n{\"id\":\"gen-1755293044-2iJs6V1IAdje9uIUMwn7\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755293044,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
+        \ \\\"summary\\\": \\\"Ruby is described as a programming language.\\\",\\n
+        \ \\\"details\\\": {\\n    \\\"category\\\": \\\"Programming Language\\\",\\n
+        \   \\\"confidence\\\": 0.95,\\n    \\\"keywords\\\": [\\\"Ruby\\\", \\\"programming\\\",
+        \\\"language\\\"]\\n  },\\n  \\\"requires_followup\\\": false\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":255,\"completion_tokens\":61,\"total_tokens\":316,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Fri, 15 Aug 2025 21:24:05 GMT
+recorded_with: VCR 6.3.1

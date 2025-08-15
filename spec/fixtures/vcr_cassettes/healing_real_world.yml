@@ -1,0 +1,192 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"You need to create a JSON response
+        for contact information.\n\nCreate JSON for:\n- Name: Dr. Jane Smith-Johnson\n-
+        Age: 42\n- Email: jane.smith+work@company-name.co.uk\n\nCommon mistakes to
+        avoid:\n1. Missing quotes around strings\n2. Using single quotes instead of
+        double\n3. Trailing commas\n4. Unescaped quotes in values\n\nReturn ONLY valid
+        JSON matching the required schema.\n"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"person","strict":true,"schema":{"type":"object","properties":{"name":{"type":"string","description":"Person''s
+        name"},"age":{"type":"integer","description":"Person''s age in years"},"email":{"type":"string","description":"Email
+        address"}},"required":["name","age"]}}},"max_tokens":300,"temperature":0.7}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 17:28:29 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 96fa689c8e744ca5-MSP
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\n  \"error\":
+        {\n    \"message\": \"Invalid schema for response_format ''person'': In context=(),
+        ''additionalProperties'' is required to be supplied and to be false.\",\n    \"type\":
+        \"invalid_request_error\",\n    \"param\": \"response_format\",\n    \"code\":
+        null\n  }\n}","provider_name":"Azure"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
+  recorded_at: Fri, 15 Aug 2025 17:28:29 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"You need to create a JSON response
+        for contact information.\n\nCreate JSON for:\n- Name: Dr. Jane Smith-Johnson\n-
+        Age: 42\n- Email: jane.smith+work@company-name.co.uk\n\nCommon mistakes to
+        avoid:\n1. Missing quotes around strings\n2. Using single quotes instead of
+        double\n3. Trailing commas\n4. Unescaped quotes in values\n\nReturn ONLY valid
+        JSON matching the required schema.\n"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"person","strict":true,"schema":{"type":"object","properties":{"name":{"type":"string","description":"Person''s
+        name"},"age":{"type":"integer","description":"Person''s age in years"},"email":{"type":"string","description":"Email
+        address"}},"required":["name","age"],"additionalProperties":false}}},"max_tokens":300,"temperature":0.7}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 17:41:15 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 96fa7b50ae632041-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\n  \"error\":
+        {\n    \"message\": \"Invalid schema for response_format ''person'': In context=(),
+        ''required'' is required to be supplied and to be an array including every
+        key in properties. Missing ''email''.\",\n    \"type\": \"invalid_request_error\",\n    \"param\":
+        \"response_format\",\n    \"code\": null\n  }\n}","provider_name":"Azure"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
+  recorded_at: Fri, 15 Aug 2025 17:41:15 GMT
+- request:
+    method: post
+    uri: https://openrouter.ai/api/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"messages":[{"role":"user","content":"You need to create a JSON response
+        for contact information.\n\nCreate JSON for:\n- Name: Dr. Jane Smith-Johnson\n-
+        Age: 42\n- Email: jane.smith+work@company-name.co.uk\n\nCommon mistakes to
+        avoid:\n1. Missing quotes around strings\n2. Using single quotes instead of
+        double\n3. Trailing commas\n4. Unescaped quotes in values\n\nReturn ONLY valid
+        JSON matching the required schema.\n"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"person","strict":true,"schema":{"type":"object","properties":{"name":{"type":"string","description":"Person''s
+        name"},"age":{"type":"integer","description":"Person''s age in years"},"email":{"type":"string","description":"Email
+        address"}},"required":["name","age","email"],"additionalProperties":false}}},"max_tokens":300,"temperature":0.7}'
+    headers:
+      Authorization:
+      - Bearer <OPENROUTER_API_KEY>
+      Content-Type:
+      - application/json
+      X-Title:
+      - OpenRouter Ruby Client
+      Http-Referer:
+      - https://github.com/OlympiaAI/open_router
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 Aug 2025 18:35:04 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Vary:
+      - Accept-Encoding
+      Permissions-Policy:
+      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
+        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
+      Referrer-Policy:
+      - no-referrer, strict-origin-when-cross-origin
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 96faca268d7661d2-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: "\n         \n{\"id\":\"gen-1755282904-iwRrDHZkGjellIufFdfO\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755282904,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"name\\\":\\\"Dr.
+        Jane Smith-Johnson\\\",\\\"age\\\":42,\\\"email\\\":\\\"jane.smith+work@company-name.co.uk\\\"}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":158,\"completion_tokens\":29,\"total_tokens\":187,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Fri, 15 Aug 2025 18:35:05 GMT
+recorded_with: VCR 6.3.1
