@@ -55,6 +55,8 @@ jobs:
       env:
         # Use VCR cassettes in CI, don't make real API calls
         VCR_RECORD: none
+        # Dummy API key for VCR tests (never used for real requests)
+        OPENROUTER_API_KEY: "dummy-api-key-for-testing-do-not-use"
         
     - name: Check test coverage
       run: |

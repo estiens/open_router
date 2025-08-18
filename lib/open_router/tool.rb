@@ -151,7 +151,8 @@ module OpenRouter
       private
 
       def add_property(name, definition)
-        @params[:properties][name] = definition
+        processed_definition = definition.transform_values { |value| value.is_a?(Proc) ? value.call : value }
+        @params[:properties][name] = processed_definition
       end
 
       def mark_required(name)
