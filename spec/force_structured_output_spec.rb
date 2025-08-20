@@ -139,6 +139,42 @@ RSpec.describe "Force structured output on unsupported models" do
 
         client.complete(messages, model: "openrouter/auto", response_format:)
       end
+
+      context "respects configuration.auto_force_on_unsupported_models flag" do
+        context "when auto_force_on_unsupported_models is false" do
+          it "should NOT auto-force for unsupported models" do
+            # Configure to disable auto-forcing
+            allow(OpenRouter.configuration).to receive(:auto_force_on_unsupported_models).and_return(false)
+
+            # Should use native mode (include response_format in API call) instead of forcing
+            expect(client).to receive(:post) do |path:, parameters:|
+              expect(parameters).to have_key(:response_format) # Should use native, not force
+              { "choices" => [{ "message" => { "content" => '{"name": "John", "age": 30}' } }] }
+            end
+
+            # Should NOT output warning about auto-forcing
+            expect do
+              client.complete(messages, model: "unsupported-model", response_format:)
+            end.not_to output(/Automatically using forced extraction/).to_stderr
+          end
+        end
+
+        context "when auto_force_on_unsupported_models is true" do
+          it "should auto-force for unsupported models (current behavior)" do
+            # Configure to enable auto-forcing
+            allow(OpenRouter.configuration).to receive(:auto_force_on_unsupported_models).and_return(true)
+
+            expect(client).to receive(:post) do |path:, parameters:|
+              expect(parameters).not_to have_key(:response_format) # Should be forced
+              { "choices" => [{ "message" => { "content" => '{"name": "John", "age": 30}' } }] }
+            end
+
+            expect do
+              client.complete(messages, model: "unsupported-model", response_format:)
+            end.to output(/doesn't support native structured outputs.*Automatically using forced extraction/).to_stderr
+          end
+        end
+      end
     end
 
     context "without response_format" do

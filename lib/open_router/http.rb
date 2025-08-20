@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 module OpenRouter
   module HTTP
     def get(path:)
@@ -57,7 +59,7 @@ module OpenRouter
       Faraday.new do |f|
         f.options[:timeout] = OpenRouter.configuration.request_timeout
         f.request(:multipart) if multipart
-        f.use MiddlewareErrors if @log_errors
+        # NOTE: Removed MiddlewareErrors reference - was undefined and @log_errors was never set
         f.response :raise_error
         f.response :json
 
@@ -66,7 +68,10 @@ module OpenRouter
     end
 
     def uri(path:)
-      File.join(OpenRouter.configuration.uri_base, OpenRouter.configuration.api_version, path)
+      base = OpenRouter.configuration.uri_base.sub(%r{/\z}, "")
+      ver = OpenRouter.configuration.api_version.to_s.sub(%r{^/}, "").sub(%r{/\z}, "")
+      p = path.to_s.sub(%r{^/}, "")
+      "#{base}/#{ver}/#{p}"
     end
 
     def headers

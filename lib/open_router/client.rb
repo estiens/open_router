@@ -62,8 +62,7 @@ module OpenRouter
       if response_format
         # Auto-detect if we should force based on model capabilities
         if force_structured_output.nil?
-          if model.is_a?(String) && model != "openrouter/auto" && !ModelRegistry.has_capability?(model,
-                                                                                                 :structured_outputs)
+          if model.is_a?(String) && model != "openrouter/auto" && !ModelRegistry.has_capability?(model, :structured_outputs) && configuration.auto_force_on_unsupported_models
             warn "[OpenRouter] Model '#{model}' doesn't support native structured outputs. Automatically using forced extraction mode."
             force_structured_output = true
           else
@@ -289,7 +288,7 @@ module OpenRouter
       messages.any? do |msg|
         content = msg[:content] || msg["content"]
         if content.is_a?(Array)
-          content.any? { |part| part.is_a?(Hash) && part[:type] == "image_url" }
+          content.any? { |part| part.is_a?(Hash) && (part[:type] == "image_url" || part["type"] == "image_url") }
         else
           false
         end

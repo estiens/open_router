@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "active_support/core_ext/hash/indifferent_access"
 
 module OpenRouter
   class StructuredOutputError < Error; end
@@ -55,13 +56,13 @@ module OpenRouter
       if has_tool_calls?
         {
           role: "assistant",
-          content:,
+          content: content,
           tool_calls: raw_tool_calls
         }
       else
         {
           role: "assistant",
-          content:
+          content: content
         }
       end
     end
@@ -294,7 +295,7 @@ module OpenRouter
           Schema.new(
             schema_def[:name] || "response",
             schema_def[:schema],
-            strict: schema_def[:strict] || true
+            strict: schema_def.key?(:strict) ? schema_def[:strict] : true
           )
         end
       end

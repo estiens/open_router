@@ -375,6 +375,22 @@ RSpec.describe OpenRouter::ModelSelector do
         max_timestamp = all_models.values.map { |s| s[:created_at] }.max
         expect(specs[:created_at]).to eq(max_timestamp)
       end
+
+      it "handles nil created_at values safely" do
+        # Mock data with nil created_at to test nil-safety
+        models_with_nil = {
+          "model1" => { created_at: nil, cost_per_1k_tokens: { input: 0.01 } },
+          "model2" => { created_at: 1_677_652_288, cost_per_1k_tokens: { input: 0.01 } },
+          "model3" => { created_at: nil, cost_per_1k_tokens: { input: 0.01 } }
+        }
+
+        allow(OpenRouter::ModelRegistry).to receive(:all_models).and_return(models_with_nil)
+        allow(OpenRouter::ModelRegistry).to receive(:models_meeting_requirements).and_return(models_with_nil)
+
+        selector = described_class.new.optimize_for(:latest)
+        expect { selector.choose }.not_to raise_error
+        expect { selector.choose_with_fallbacks }.not_to raise_error
+      end
     end
 
     context "with context optimization" do
@@ -387,6 +403,22 @@ RSpec.describe OpenRouter::ModelSelector do
         all_models = OpenRouter::ModelRegistry.all_models
         max_context = all_models.values.map { |s| s[:context_length] }.max
         expect(specs[:context_length]).to eq(max_context)
+      end
+
+      it "handles nil context_length values safely" do
+        # Mock data with nil context_length to test nil-safety
+        models_with_nil = {
+          "model1" => { context_length: nil, cost_per_1k_tokens: { input: 0.01 } },
+          "model2" => { context_length: 8192, cost_per_1k_tokens: { input: 0.01 } },
+          "model3" => { context_length: nil, cost_per_1k_tokens: { input: 0.01 } }
+        }
+
+        allow(OpenRouter::ModelRegistry).to receive(:all_models).and_return(models_with_nil)
+        allow(OpenRouter::ModelRegistry).to receive(:models_meeting_requirements).and_return(models_with_nil)
+
+        selector = described_class.new.optimize_for(:context)
+        expect { selector.choose }.not_to raise_error
+        expect { selector.choose_with_fallbacks }.not_to raise_error
       end
     end
   end

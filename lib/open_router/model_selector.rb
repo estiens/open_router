@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "date"
+
 module OpenRouter
   class ModelSelectionError < Error; end
 
@@ -431,9 +433,9 @@ module OpenRouter
           [specs[:performance_tier] == :premium ? 0 : 1, specs[:cost_per_1k_tokens][:input]]
         end
       when :latest
-        candidates.max_by { |_, specs| specs[:created_at] }
+        candidates.max_by { |_, specs| (specs[:created_at] || 0).to_i }
       when :context
-        candidates.max_by { |_, specs| specs[:context_length] }
+        candidates.max_by { |_, specs| (specs[:context_length] || 0).to_i }
       else
         candidates.min_by { |_, specs| specs[:cost_per_1k_tokens][:input] }
       end
@@ -449,9 +451,9 @@ module OpenRouter
           [specs[:performance_tier] == :premium ? 0 : 1, specs[:cost_per_1k_tokens][:input]]
         end
       when :latest
-        candidates.sort_by { |_, specs| -specs[:created_at] }
+        candidates.sort_by { |_, specs| -(specs[:created_at] || 0).to_i }
       when :context
-        candidates.sort_by { |_, specs| -specs[:context_length] }
+        candidates.sort_by { |_, specs| -(specs[:context_length] || 0).to_i }
       else
         candidates.sort_by { |_, specs| specs[:cost_per_1k_tokens][:input] }
       end

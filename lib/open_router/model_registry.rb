@@ -148,8 +148,8 @@ module OpenRouter
           models[model_id] = {
             name: model_data["name"],
             cost_per_1k_tokens: {
-              input: model_data["pricing"]["prompt"].to_f,
-              output: model_data["pricing"]["completion"].to_f
+              input: model_data.dig("pricing", "prompt").to_f,
+              output: model_data.dig("pricing", "completion").to_f
             },
             context_length: model_data["context_length"],
             capabilities: extract_capabilities(model_data),
@@ -194,10 +194,10 @@ module OpenRouter
 
       # Determine performance tier based on pricing and capabilities
       def determine_performance_tier(model_data)
-        input_cost = model_data["pricing"]["prompt"].to_f
+        input_cost = model_data.dig("pricing", "prompt").to_f
 
         # Higher cost generally indicates premium models
-        if input_cost > 0.00001 # > $0.01 per 1k tokens
+        if input_cost > 0.01 # > $0.01 per 1k tokens
           :premium
         else
           :standard

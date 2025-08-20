@@ -22,6 +22,69 @@ RSpec.describe OpenRouter::ModelRegistry do
     end
   end
 
+  describe ".process_api_models" do
+    it "handles models with nil pricing gracefully after fix" do
+      # Test data with nil pricing - verifies the fix works
+      api_models = [
+        {
+          "id" => "test/model-without-pricing",
+          "name" => "Test Model",
+          "context_length" => 4000,
+          "architecture" => {
+            "tokenizer" => "Llama2",
+            "instruct_type" => "llama2"
+          },
+          "pricing" => nil, # This now works with dig
+          "per_request_limits" => nil
+        }
+      ]
+
+      # This should work now thanks to using dig
+      result = OpenRouter::ModelRegistry.send(:process_api_models, api_models)
+      expect(result).to have_key("test/model-without-pricing")
+
+      model = result["test/model-without-pricing"]
+      expect(model[:cost_per_1k_tokens][:input]).to eq(0.0)
+      expect(model[:cost_per_1k_tokens][:output]).to eq(0.0)
+    end
+
+    it "handles determine_performance_tier with nil pricing after fix" do
+      model_data = {
+        "pricing" => nil
+      }
+
+      # This should work now thanks to using dig
+      result = OpenRouter::ModelRegistry.send(:determine_performance_tier, model_data)
+      expect(result).to eq(:standard) # 0.0 cost means standard tier
+    end
+
+    it "demonstrates performance tier threshold bug" do
+      # Test that shows the threshold is wrong - should be 0.01 but is 0.00001
+
+      # Model that costs $0.005 per 1k tokens (less than $0.01)
+      model_data_cheap = {
+        "pricing" => {
+          "prompt" => "0.005" # $0.005 per 1k tokens
+        }
+      }
+
+      # This should be :standard (< $0.01)
+      result = OpenRouter::ModelRegistry.send(:determine_performance_tier, model_data_cheap)
+      expect(result).to eq(:standard)
+
+      # Model that costs $0.02 per 1k tokens (more than $0.01)
+      model_data_expensive = {
+        "pricing" => {
+          "prompt" => "0.02" # $0.02 per 1k tokens
+        }
+      }
+
+      # This should be :premium (> $0.01)
+      result = OpenRouter::ModelRegistry.send(:determine_performance_tier, model_data_expensive)
+      expect(result).to eq(:premium)
+    end
+  end
+
   describe ".refresh!" do
     it "clears cache and fetches fresh data" do
       # Load initial data

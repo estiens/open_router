@@ -80,6 +80,22 @@ RSpec.describe "OpenRouter Client Capability Validation" do
       end.to raise_error(Faraday::UnauthorizedError)
     end
 
+    it "detects images with string keys and shows vision warnings" do
+      expect do
+        expect do
+          client.complete([
+                            {
+                              "role" => "user",
+                              "content" => [
+                                { "type" => "text", "text" => "What's in this image?" },
+                                { "type" => "image_url", "image_url" => { "url" => "data:image/png;base64,abc123" } }
+                              ]
+                            }
+                          ], model: "basic/text-model")
+        end.to output(/OpenRouter Warning.*vision/).to_stderr
+      end.to raise_error(Faraday::UnauthorizedError)
+    end
+
     it "doesn't show warnings when model supports the feature" do
       # Only API error, no warning
       expect do
@@ -129,6 +145,20 @@ RSpec.describe "OpenRouter Client Capability Validation" do
                             content: [
                               { type: "text", text: "What's in this image?" },
                               { type: "image_url", image_url: { url: "data:image/png;base64,abc123" } }
+                            ]
+                          }
+                        ], model: "basic/text-model")
+      end.to raise_error(OpenRouter::CapabilityError, /vision.*missing :vision/)
+    end
+
+    it "detects images with string keys and raises CapabilityError" do
+      expect do
+        client.complete([
+                          {
+                            "role" => "user",
+                            "content" => [
+                              { "type" => "text", "text" => "What's in this image?" },
+                              { "type" => "image_url", "image_url" => { "url" => "data:image/png;base64,abc123" } }
                             ]
                           }
                         ], model: "basic/text-model")

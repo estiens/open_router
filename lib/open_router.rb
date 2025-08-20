@@ -3,6 +3,12 @@
 require "faraday"
 require "faraday/multipart"
 
+begin
+  require "faraday_middleware"
+rescue LoadError
+  # faraday_middleware not available - JSON middleware is built into Faraday 2.x
+end
+
 module OpenRouter
   class Error < StandardError; end
   class ConfigurationError < Error; end

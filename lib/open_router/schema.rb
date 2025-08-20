@@ -141,7 +141,7 @@ module OpenRouter
 
       def strict(value = true)
         @strict_mode = value
-        additional_properties(!value) if value
+        additional_properties(!value)
       end
 
       def additional_properties(allowed = true)

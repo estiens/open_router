@@ -148,6 +148,24 @@ RSpec.describe OpenRouter::Response do
     end
   end
 
+  describe "message conversion" do
+    it "converts regular response to message format correctly" do
+      response = OpenRouter::Response.new(basic_response)
+      message = response.to_message
+      expect(message[:role]).to eq("assistant")
+      expect(message[:content]).to eq("Hello! How can I help you today?")
+      expect(message).not_to have_key(:tool_calls)
+    end
+
+    it "converts tool call response to message format correctly" do
+      response = OpenRouter::Response.new(tool_call_response)
+      message = response.to_message
+      expect(message[:role]).to eq("assistant")
+      expect(message[:content]).to be_nil
+      expect(message[:tool_calls]).to be_an(Array)
+    end
+  end
+
   describe "structured outputs" do
     let(:weather_schema) do
       OpenRouter::Schema.define("weather") do
@@ -178,6 +196,75 @@ RSpec.describe OpenRouter::Response do
       schema_response = OpenRouter::Response.new(structured_response, response_format: weather_schema)
       output = schema_response.structured_output
       expect(output["location"]).to eq("London")
+    end
+
+    it "handles hash response_format with explicit strict: false" do
+      response_format_with_strict_false = {
+        type: "json_schema",
+        json_schema: {
+          name: "weather",
+          schema: {
+            type: "object",
+            properties: {
+              location: { type: "string" },
+              temperature: { type: "number" }
+            }
+          },
+          strict: false
+        }
+      }
+
+      response = OpenRouter::Response.new(structured_response, response_format: response_format_with_strict_false)
+
+      # The schema should be created with strict: false, not defaulting to true
+      schema = response.send(:extract_schema_from_response_format)
+      expect(schema.strict).to be false
+    end
+
+    it "handles hash response_format with explicit strict: true" do
+      response_format_with_strict_true = {
+        type: "json_schema",
+        json_schema: {
+          name: "weather",
+          schema: {
+            type: "object",
+            properties: {
+              location: { type: "string" },
+              temperature: { type: "number" }
+            }
+          },
+          strict: true
+        }
+      }
+
+      response = OpenRouter::Response.new(structured_response, response_format: response_format_with_strict_true)
+
+      # The schema should be created with strict: true
+      schema = response.send(:extract_schema_from_response_format)
+      expect(schema.strict).to be true
+    end
+
+    it "defaults to strict: true when strict key is missing" do
+      response_format_without_strict = {
+        type: "json_schema",
+        json_schema: {
+          name: "weather",
+          schema: {
+            type: "object",
+            properties: {
+              location: { type: "string" },
+              temperature: { type: "number" }
+            }
+          }
+          # no strict key
+        }
+      }
+
+      response = OpenRouter::Response.new(structured_response, response_format: response_format_without_strict)
+
+      # The schema should default to strict: true
+      schema = response.send(:extract_schema_from_response_format)
+      expect(schema.strict).to be true
     end
 
     it "handles invalid JSON gracefully" do

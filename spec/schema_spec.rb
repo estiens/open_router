@@ -172,6 +172,25 @@ RSpec.describe OpenRouter::Schema do
 
       expect(schema.schema[:additionalProperties]).to be false
     end
+
+    it "sets additionalProperties to true when non-strict" do
+      schema = OpenRouter::Schema.define("test") do
+        strict false
+        string :name
+      end
+
+      expect(schema.schema[:additionalProperties]).to be true
+    end
+
+    it "allows changing strict mode within DSL" do
+      schema = OpenRouter::Schema.define("test") do
+        strict false
+        string :name
+        additional_properties true
+      end
+
+      expect(schema.schema[:additionalProperties]).to be true
+    end
   end
 
   # Only test validation if json-schema is available

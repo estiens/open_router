@@ -23,9 +23,9 @@ VCR.configure do |config|
                 elsif ENV["VCR_RECORD_ALL"] == "true"
                   :all   # Re-record everything when explicitly requested
                 elsif ENV["VCR_RECORD_NEW"] == "true"
-                  :new_episodes  # Record new interactions
+                  :new_episodes # Record new interactions
                 else
-                  :once  # Record if cassette doesn't exist, otherwise use existing
+                  :once # Record if cassette doesn't exist, otherwise use existing
                 end
 
   # Default cassette options
@@ -46,7 +46,6 @@ end
 # Configure WebMock to work with VCR
 # VCR will handle enabling/disabling connections based on cassette presence
 WebMock.disable_net_connect!(allow_localhost: true)
-
 
 # Helper method for VCR tests
 def with_vcr(cassette_name, **options, &block)
