@@ -6,8 +6,8 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"messages":[{"role":"user","content":"Give me a message and any additional
-        information you think is relevant"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"flexible_response","strict":false,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
-        message"}},"required":["message"],"additionalProperties":true}}},"max_tokens":500}'
+        information you think is relevant"}],"model":"openai/gpt-4o-mini","max_tokens":500,"response_format":{"type":"json_schema","json_schema":{"name":"flexible_response","strict":false,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
+        message"}},"required":["message"],"additionalProperties":true}}}}'
     headers:
       Authorization:
       - Bearer <OPENROUTER_API_KEY>
@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:41:22 GMT
+      - Wed, 20 Aug 2025 08:01:28 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -50,14 +50,18 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7b7b4f286183-ORD
+      - 97205ce99ed2a20f-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n{\"id\":\"gen-1755279681-Hh4Zv4nUvbX2patOF5fu\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755279681,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"message\\\":\\\"Hello!
-        I hope you're having a great day. If you're looking for inspiration or motivation,
-        remember that every small step counts towards achieving your goals. Stay positive
-        and keep pushing forward!\\\\n\\\\nAdditional information: If you need assistance
-        with setting goals or developing a plan, consider using bullet journaling
-        or digital planning apps. These tools can help keep you organized and focused.\\\"}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":55,\"completion_tokens\":77,\"total_tokens\":132,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:41:23 GMT
+      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
+        \        \n\n         \n{\"id\":\"gen-1755676888-m08cscXGN84XogHqiVYd\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676888,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"message\\\":\\\"Hello!
+        I hope this message finds you well. Remember that it's important to take time
+        for yourself amidst a busy schedule. Whether it's a short break for a walk,
+        reading a good book, or simply enjoying a cup of tea, self-care is essential
+        for maintaining both mental and physical health. If you're facing challenges,
+        don't hesitate to reach out to friends or family for support. You're not alone!
+        \\\\n\\\\nAdditionally, if you have any particular goals or projects in mind,
+        setting small, achievable steps can help you make progress without feeling
+        overwhelmed. Stay positive!\\\"}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_34a54ae93c\",\"usage\":{\"prompt_tokens\":55,\"completion_tokens\":116,\"total_tokens\":171,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:01:31 GMT
 recorded_with: VCR 6.3.1

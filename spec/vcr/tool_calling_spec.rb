@@ -57,8 +57,8 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
     }
   end
 
-  describe "single tool call", vcr: { cassette_name: "tool_calling_single_tool" } do
-    it "successfully makes a tool call with DSL-defined tool" do
+  describe "single tool call" do
+    it "successfully makes a tool call with DSL-defined tool", vcr: { cassette_name: "tool_calling_dsl_tool" } do
       messages = [
         { role: "user", content: "What is 15 + 27?" }
       ]
@@ -89,7 +89,7 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
       expect([27, 27.0]).to include(args["b"])
     end
 
-    it "works with hash-defined tools" do
+    it "works with hash-defined tools", vcr: { cassette_name: "tool_calling_hash_tool" } do
       messages = [
         { role: "user", content: "Search for 'ruby programming' in the database" }
       ]
@@ -111,8 +111,8 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
     end
   end
 
-  describe "multiple tools available", vcr: { cassette_name: "tool_calling_multiple_tools" } do
-    it "chooses appropriate tool from multiple options" do
+  describe "multiple tools available" do
+    it "chooses appropriate tool from multiple options", vcr: { cassette_name: "tool_calling_multiple_tools" } do
       messages = [
         { role: "user", content: "What's the weather like in San Francisco?" }
       ]
@@ -134,8 +134,8 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
     end
   end
 
-  describe "tool choice parameter", vcr: { cassette_name: "tool_calling_tool_choice" } do
-    it "respects specific tool choice" do
+  describe "tool choice parameter" do
+    it "respects specific tool choice", vcr: { cassette_name: "tool_calling_specific_choice" } do
       messages = [
         { role: "user", content: "Calculate something for me" }
       ]
@@ -153,7 +153,7 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
       expect(tool_call.function_name).to eq("calculator")
     end
 
-    it "respects required tool choice" do
+    it "respects required tool choice", vcr: { cassette_name: "tool_calling_required_choice" } do
       messages = [
         { role: "user", content: "Hello there" }
       ]
@@ -169,7 +169,7 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
       expect(response.has_tool_calls?).to be true
     end
 
-    it "respects none tool choice" do
+    it "respects none tool choice", vcr: { cassette_name: "tool_calling_none_choice" } do
       messages = [
         { role: "user", content: "What is 5 + 5?" }
       ]
@@ -305,8 +305,8 @@ RSpec.describe "OpenRouter Tool Calling", :vcr do
       result_message = tool_call.to_result_message("Result: 10")
       expect(result_message[:role]).to eq("tool")
       expect(result_message[:tool_call_id]).to eq(tool_call.id)
-      expect(result_message[:name]).to eq(tool_call.function_name)
       expect(result_message[:content]).to eq("Result: 10")
+      # NOTE: 'name' field is correctly excluded per OpenAI specification
     end
   end
 

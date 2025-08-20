@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:40:51 GMT
+      - Wed, 20 Aug 2025 07:14:55 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,10 +48,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7ab7acc9a1d0-MSP
+      - 972018b51fccace8-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755279650-3L8Y2Tu44ALdoFHVpr8h\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755279650,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Please
-        provide the requested information or task so that I can assist you.\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":12,\"completion_tokens\":14,\"total_tokens\":26,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:40:51 GMT
+      string: "\n         \n{\"id\":\"gen-1755674094-OVT30GyNpJvck2i18Cuw\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755674094,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Sure,
+        how can I assist you?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":12,\"completion_tokens\":8,\"total_tokens\":20,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 07:14:55 GMT
 recorded_with: VCR 6.3.1

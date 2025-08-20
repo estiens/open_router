@@ -27,7 +27,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:40:52 GMT
+      - Wed, 20 Aug 2025 07:14:56 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 96fa7ac62bd161c3-ORD
+      - 972018c04dfca21f-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -52,5 +52,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"error":{"message":"invalid-model-name is not a valid model ID","code":400},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Fri, 15 Aug 2025 17:40:52 GMT
+  recorded_at: Wed, 20 Aug 2025 07:14:56 GMT
 recorded_with: VCR 6.3.1

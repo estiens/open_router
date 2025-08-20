@@ -12,151 +12,7 @@ http_interactions:
         specification:\n\n{\"name\":\"task_list\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"tasks\":{\"type\":\"array\",\"description\":\"List
         of tasks\",\"items\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\",\"description\":\"Task
         title\"},\"priority\":{\"type\":\"string\",\"description\":\"Priority level\"},\"completed\":{\"type\":\"boolean\",\"description\":\"Whether
-        task is completed\"}},\"required\":[\"title\",\"priority\"],\"additionalProperties\":false}},\"total_count\":{\"type\":\"integer\",\"description\":\"Total
-        number of tasks\"}},\"required\":[\"tasks\",\"total_count\"],\"additionalProperties\":false}}\n\nYour
-        response should be valid JSON that matches this schema structure exactly.\n\nexample
-        format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
-        guidelines:\n- Ensure all required fields match the schema\n- Use proper JSON
-        formatting (no trailing commas)  \n- Return ONLY the JSON - no other text
-        or explanations\n"}],"model":"openai/gpt-4o-mini","max_tokens":1000}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 20:37:12 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96fb7d0e69bdeac7-ORD
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n{\"id\":\"gen-1755290232-Cevo0prK8DCivenAAHlH\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755290232,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\\"tasks\\\":[{\\\"title\\\":\\\"writing
-        documentation\\\",\\\"priority\\\":\\\"high\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"testing
-        code\\\",\\\"priority\\\":\\\"medium\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"reviewing
-        pull request\\\",\\\"priority\\\":\\\"low\\\",\\\"completed\\\":false}],\\\"total_count\\\":3}\\n```\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_51db84afab\",\"usage\":{\"prompt_tokens\":246,\"completion_tokens\":55,\"total_tokens\":301,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 20:37:13 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"The following response contains
-        explanatory text and JSON that needs to be extracted and fixed to conform
-        to the provided schema.\n\nValidation Errors:\nInvalid JSON: unexpected token
-        at ''```json\n{\"tasks\":[{\"title\":\"writing documentation\",\"priority\":\"high\",\"completed\":false},{\"title\":\"testing
-        code\",\"priority\":\"medium\",\"completed\":false},{\"title\":\"reviewing
-        pull request\",\"priority\":\"low\",\"completed\":false}],\"total_count\":3}\n```''\n\nOriginal
-        Response Content:\n```json\n{\"tasks\":[{\"title\":\"writing documentation\",\"priority\":\"high\",\"completed\":false},{\"title\":\"testing
-        code\",\"priority\":\"medium\",\"completed\":false},{\"title\":\"reviewing
-        pull request\",\"priority\":\"low\",\"completed\":false}],\"total_count\":3}\n```\n\nRequired
-        JSON Schema:\n```json\n{\"name\":\"task_list\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"tasks\":{\"type\":\"array\",\"description\":\"List
-        of tasks\",\"items\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\",\"description\":\"Task
-        title\"},\"priority\":{\"type\":\"string\",\"description\":\"Priority level\"},\"completed\":{\"type\":\"boolean\",\"description\":\"Whether
-        task is completed\"}},\"required\":[\"title\",\"priority\"],\"additionalProperties\":false}},\"total_count\":{\"type\":\"integer\",\"description\":\"Total
-        number of tasks\"}},\"required\":[\"tasks\",\"total_count\"],\"additionalProperties\":false}}\n```\n\nPlease
-        extract and correct the JSON from the response above to produce a valid JSON
-        object that strictly conforms to the schema.\nReturn ONLY the fixed, raw JSON
-        object, without any surrounding text or explanations.\n"}],"model":"openai/gpt-4o-mini","max_tokens":2000,"temperature":0}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 20:38:49 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96fb7f6d4d8ceaca-ORD
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1755290329-bmfTf4ouuyWOLKZuJq6q\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755290329,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
-        \ \\\"tasks\\\": [\\n    {\\n      \\\"title\\\": \\\"writing documentation\\\",\\n
-        \     \\\"priority\\\": \\\"high\\\",\\n      \\\"completed\\\": false\\n
-        \   },\\n    {\\n      \\\"title\\\": \\\"testing code\\\",\\n      \\\"priority\\\":
-        \\\"medium\\\",\\n      \\\"completed\\\": false\\n    },\\n    {\\n      \\\"title\\\":
-        \\\"reviewing pull request\\\",\\n      \\\"priority\\\": \\\"low\\\",\\n
-        \     \\\"completed\\\": false\\n    }\\n  ],\\n  \\\"total_count\\\": 3\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":320,\"completion_tokens\":94,\"total_tokens\":414,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 20:38:51 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Create a task list with 3 tasks:
-        writing documentation (high priority), testing code (medium priority), and
-        reviewing pull request (low priority)"},{"role":"system","content":"Please
-        format your output as a JSON value that conforms to the following JSON Schema
-        specification:\n\n{\"name\":\"task_list\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"tasks\":{\"type\":\"array\",\"description\":\"List
-        of tasks\",\"items\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\",\"description\":\"Task
-        title\"},\"priority\":{\"type\":\"string\",\"description\":\"Priority level\"},\"completed\":{\"type\":\"boolean\",\"description\":\"Whether
-        task is completed\"}},\"required\":[\"title\",\"priority\"],\"additionalProperties\":false}},\"total_count\":{\"type\":\"integer\",\"description\":\"Total
+        task is completed\"}},\"required\":[\"title\",\"priority\",\"completed\"],\"additionalProperties\":false}},\"total_count\":{\"type\":\"integer\",\"description\":\"Total
         number of tasks\"}},\"required\":[\"tasks\",\"total_count\"],\"additionalProperties\":false}}\n\nYour
         response should be valid JSON that matches this schema structure exactly.\n\nexample
         format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
@@ -184,7 +40,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 21:40:14 GMT
+      - Wed, 20 Aug 2025 08:01:24 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -205,85 +61,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fbd959ca01a1f4-MSP
+      - 97205cc5f89b5120-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1755294012-MQBeyO9yfuEAuUUMi8n4\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755294012,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\\"tasks\\\":[{\\\"title\\\":\\\"writing
+      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
+        \        \n\n         \n{\"id\":\"gen-1755676882-qpolAGv5bHjk3W8lVlK9\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676882,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\\"tasks\\\":[{\\\"title\\\":\\\"writing
         documentation\\\",\\\"priority\\\":\\\"high\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"testing
         code\\\",\\\"priority\\\":\\\"medium\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"reviewing
-        pull request\\\",\\\"priority\\\":\\\"low\\\",\\\"completed\\\":false}],\\\"total_count\\\":3}\\n```\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_51db84afab\",\"usage\":{\"prompt_tokens\":245,\"completion_tokens\":55,\"total_tokens\":300,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 21:40:15 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"The following response contains
-        explanatory text and JSON that needs to be extracted and fixed to conform
-        to the provided schema.\n\nValidation Errors:\nInvalid JSON: unexpected character:
-        ''```json'' at line 1 column 1\n\nOriginal Response Content:\n```json\n{\"tasks\":[{\"title\":\"writing
-        documentation\",\"priority\":\"high\",\"completed\":false},{\"title\":\"testing
-        code\",\"priority\":\"medium\",\"completed\":false},{\"title\":\"reviewing
-        pull request\",\"priority\":\"low\",\"completed\":false}],\"total_count\":3}\n```\n\nRequired
-        JSON Schema:\n```json\n{\"name\":\"task_list\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"tasks\":{\"type\":\"array\",\"description\":\"List
-        of tasks\",\"items\":{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\",\"description\":\"Task
-        title\"},\"priority\":{\"type\":\"string\",\"description\":\"Priority level\"},\"completed\":{\"type\":\"boolean\",\"description\":\"Whether
-        task is completed\"}},\"required\":[\"title\",\"priority\"],\"additionalProperties\":false}},\"total_count\":{\"type\":\"integer\",\"description\":\"Total
-        number of tasks\"}},\"required\":[\"tasks\",\"total_count\"],\"additionalProperties\":false}}\n```\n\nPlease
-        extract and correct the JSON from the response above to produce a valid JSON
-        object that strictly conforms to the schema.\nReturn ONLY the fixed, raw JSON
-        object, without any surrounding text or explanations.\n"}],"model":"openai/gpt-4o-mini","max_tokens":2000,"temperature":0}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 23:10:55 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96fc5e368cd27816-MSP
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n{\"id\":\"gen-1755299454-jLS2R3nyWsATbwFJ4gSs\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755299454,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
-        \ \\\"tasks\\\": [\\n    {\\n      \\\"title\\\": \\\"writing documentation\\\",\\n
-        \     \\\"priority\\\": \\\"high\\\",\\n      \\\"completed\\\": false\\n
-        \   },\\n    {\\n      \\\"title\\\": \\\"testing code\\\",\\n      \\\"priority\\\":
-        \\\"medium\\\",\\n      \\\"completed\\\": false\\n    },\\n    {\\n      \\\"title\\\":
-        \\\"reviewing pull request\\\",\\n      \\\"priority\\\": \\\"low\\\",\\n
-        \     \\\"completed\\\": false\\n    }\\n  ],\\n  \\\"total_count\\\": 3\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":275,\"completion_tokens\":94,\"total_tokens\":369,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 23:10:56 GMT
+        pull request\\\",\\\"priority\\\":\\\"low\\\",\\\"completed\\\":false}],\\\"total_count\\\":3}\\n```\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":247,\"completion_tokens\":55,\"total_tokens\":302,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:01:25 GMT
 recorded_with: VCR 6.3.1

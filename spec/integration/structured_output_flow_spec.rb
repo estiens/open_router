@@ -449,7 +449,7 @@ RSpec.describe "End-to-end structured output scenarios" do
 
       expect do
         response.structured_output(auto_heal: true)
-      end.to raise_error(OpenRouter::StructuredOutputError, /Failed to parse structured output/)
+      end.to raise_error(OpenRouter::StructuredOutputError, /Failed to heal JSON after \d+ healing attempts/)
     end
   end
 end

@@ -58,28 +58,28 @@ RSpec.describe OpenRouter::ModelRegistry do
       expect(result).to eq(:standard) # 0.0 cost means standard tier
     end
 
-    it "demonstrates performance tier threshold bug" do
-      # Test that shows the threshold is wrong - should be 0.01 but is 0.00001
+    it "correctly classifies performance tiers based on pricing" do
+      # Fixed performance tier threshold test
 
-      # Model that costs $0.005 per 1k tokens (less than $0.01)
+      # Model that costs $0.0000005 per token (0.0005 per 1k tokens - cheap)
       model_data_cheap = {
         "pricing" => {
-          "prompt" => "0.005" # $0.005 per 1k tokens
+          "prompt" => "0.0000005" # Per token pricing
         }
       }
 
-      # This should be :standard (< $0.01)
+      # This should be :standard (< threshold)
       result = OpenRouter::ModelRegistry.send(:determine_performance_tier, model_data_cheap)
       expect(result).to eq(:standard)
 
-      # Model that costs $0.02 per 1k tokens (more than $0.01)
+      # Model that costs $0.000005 per token (0.005 per 1k tokens - expensive)
       model_data_expensive = {
         "pricing" => {
-          "prompt" => "0.02" # $0.02 per 1k tokens
+          "prompt" => "0.000005" # Per token pricing
         }
       }
 
-      # This should be :premium (> $0.01)
+      # This should be :premium (> threshold)
       result = OpenRouter::ModelRegistry.send(:determine_performance_tier, model_data_expensive)
       expect(result).to eq(:premium)
     end

@@ -118,10 +118,12 @@ module OpenRouter
         mark_required(name) if required
       end
 
-      def array(name, required: false, description: nil, &block)
+      def array(name, required: false, description: nil, items: nil, &block)
         array_def = { type: "array", description: }.compact
 
-        if block_given?
+        if items
+          array_def[:items] = items
+        elsif block_given?
           items_builder = ItemsBuilder.new
           items_builder.instance_eval(&block)
           array_def[:items] = items_builder.to_h
@@ -180,6 +182,35 @@ module OpenRouter
 
       def boolean(description: nil, **options)
         @items = { type: "boolean", description: }.merge(options).compact
+      end
+
+      def object(&block)
+        @items = {
+          type: "object",
+          properties: {},
+          required: [],
+          additionalProperties: false
+        }
+
+        return unless block_given?
+
+        nested = Tool::ParametersBuilder.new(@items)
+        nested.instance_eval(&block)
+      end
+
+      def items(schema = nil, &block)
+        # This method allows for `array { items { object { ... }}}` or `items(hash)`
+        if block_given?
+          # Block defines what each item in the array looks like
+          nested_builder = ItemsBuilder.new
+          nested_builder.instance_eval(&block)
+          @items = nested_builder.to_h
+        elsif schema.is_a?(Hash)
+          # Direct hash schema assignment
+          @items = schema
+        else
+          raise ArgumentError, "items must be called with either a hash or a block"
+        end
       end
 
       def to_h

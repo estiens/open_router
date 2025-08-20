@@ -27,13 +27,15 @@ http_interactions:
       message: Unauthorized
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:40:34 GMT
+      - Wed, 20 Aug 2025 07:14:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
+      Cf-Ray:
+      - 9720188ccb6da1ef-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -47,10 +49,8 @@ http_interactions:
       - nosniff
       Server:
       - cloudflare
-      Cf-Ray:
-      - 96fa7a517f786157-ORD
     body:
       encoding: UTF-8
       string: '{"error":{"message":"No auth credentials found","code":401}}'
-  recorded_at: Fri, 15 Aug 2025 17:40:34 GMT
+  recorded_at: Wed, 20 Aug 2025 07:14:48 GMT
 recorded_with: VCR 6.3.1

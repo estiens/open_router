@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:41:02 GMT
+      - Wed, 20 Aug 2025 07:15:04 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,20 +48,23 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7afc8dab61b4-ORD
+      - 972018edee4d4ca6-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n{\"id\":\"gen-1755279661-H5VWbvzqmD38g1cPottV\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755279661,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Got
-        it, Alice! How can I assist you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":15,\"completion_tokens\":12,\"total_tokens\":27,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:41:02 GMT
+      string: "\n         \n{\"id\":\"gen-1755674104-6yygNqqgZlT7crp4RGl9\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755674104,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"I
+        can't store personal information or remember details between interactions,
+        but I can assist you with anything you need right now, Alice! How can I help
+        you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":15,\"completion_tokens\":32,\"total_tokens\":47,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 07:15:04 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
     body:
       encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"My name is Alice. Remember this."},{"role":"assistant","content":"Got
-        it, Alice! How can I assist you today?"},{"role":"user","content":"What is
-        my name?"}],"models":["openai/gpt-4o-mini","openai/gpt-3.5-turbo"],"route":"fallback","max_tokens":50}'
+      string: '{"messages":[{"role":"user","content":"My name is Alice. Remember this."},{"role":"assistant","content":"I
+        can''t store personal information or remember details between interactions,
+        but I can assist you with anything you need right now, Alice! How can I help
+        you today?"},{"role":"user","content":"What is my name?"}],"models":["openai/gpt-4o-mini","openai/gpt-3.5-turbo"],"route":"fallback","max_tokens":50}'
     headers:
       Authorization:
       - Bearer <OPENROUTER_API_KEY>
@@ -83,7 +86,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:41:03 GMT
+      - Wed, 20 Aug 2025 07:15:05 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -104,10 +107,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7b039f14615e-ORD
+      - 972018f3de2aa215-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755279662-6maYSiqiSURTjAACAepq\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755279662,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Your
-        name is Alice. How can I help you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":40,\"completion_tokens\":12,\"total_tokens\":52,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:41:03 GMT
+      string: "\n         \n{\"id\":\"gen-1755674104-acWIxgWxog4Hx7Cwe8ua\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755674104,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"You
+        mentioned that your name is Alice. How can I assist you today, Alice?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":60,\"completion_tokens\":17,\"total_tokens\":77,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 07:15:05 GMT
 recorded_with: VCR 6.3.1

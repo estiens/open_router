@@ -11,7 +11,7 @@ RSpec.describe "OpenRouter Structured Outputs", :vcr do
   let(:simple_schema) do
     OpenRouter::Schema.define("simple_response") do
       string "message", required: true, description: "A simple message"
-      integer "count", required: false, description: "An optional count"
+      integer "count", required: true, description: "A count (OpenRouter requires all properties in required array)"
     end
   end
 
@@ -22,11 +22,11 @@ RSpec.describe "OpenRouter Structured Outputs", :vcr do
       object "details", required: true, description: "Detailed analysis" do
         string "category", required: true, description: "Category of analysis"
         number "confidence", required: true, description: "Confidence score 0-1"
-        array "keywords", required: false, description: "Relevant keywords" do
+        array "keywords", required: true, description: "Relevant keywords" do
           string description: "Individual keyword"
         end
       end
-      boolean "requires_followup", required: false, description: "Whether followup is needed"
+      boolean "requires_followup", required: true, description: "Whether followup is needed"
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe "OpenRouter Structured Outputs", :vcr do
         object do
           string "title", required: true, description: "Task title"
           string "priority", required: true, description: "Priority level"
-          boolean "completed", required: false, description: "Whether task is completed"
+          boolean "completed", required: true, description: "Whether task is completed"
         end
       end
       integer "total_count", required: true, description: "Total number of tasks"

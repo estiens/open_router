@@ -11,10 +11,10 @@ RSpec.describe "Faraday JSON Middleware" do
         # This test verifies normal operation when middleware is available
         # We need to ensure HAS_JSON_MW is true
         stub_const("OpenRouter::HAS_JSON_MW", true)
-        
+
         connection = client.send(:conn)
         expect(connection).to be_a(Faraday::Connection)
-        
+
         # Verify middleware is configured
         middleware_names = connection.builder.handlers.map(&:name)
         expect(middleware_names).to include("Faraday::Response::Json")
@@ -39,13 +39,13 @@ RSpec.describe "Faraday JSON Middleware" do
       it "can still parse JSON responses manually" do
         # Mock a successful response with JSON body
         json_body = '{"test": "data"}'
-        
+
         allow(client).to receive(:post).and_return(json_body)
-        
+
         # The response should be parsed as JSON
         result = client.send(:post, path: "/test", parameters: {})
         expect(result).to be_a(String)
-        
+
         # Should be able to parse the JSON
         parsed = JSON.parse(result)
         expect(parsed["test"]).to eq("data")
@@ -54,9 +54,9 @@ RSpec.describe "Faraday JSON Middleware" do
       it "handles non-JSON responses gracefully" do
         # Mock a response that's not JSON
         non_json_body = "not json"
-        
+
         allow(client).to receive(:post).and_return(non_json_body)
-        
+
         result = client.send(:post, path: "/test", parameters: {})
         expect(result).to eq("not json")
       end

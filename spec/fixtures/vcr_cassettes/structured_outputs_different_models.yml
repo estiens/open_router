@@ -5,66 +5,9 @@ http_interactions:
     uri: https://openrouter.ai/api/v1/chat/completions
     body:
       encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"simple_response","strict":true,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
-        simple message"},"count":{"type":"integer","description":"An optional count"}},"required":["message"],"additionalProperties":false}}},"max_tokens":500}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 17:41:25 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Cf-Ray:
-      - 96fa7b8c3c770ea2-ORD
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-    body:
-      encoding: UTF-8
-      string: '{"error":{"message":"Provider returned error","code":400,"metadata":{"raw":"{\n  \"error\":
-        {\n    \"message\": \"Invalid schema for response_format ''simple_response'':
-        In context=(), ''required'' is required to be supplied and to be an array
-        including every key in properties. Missing ''count''.\",\n    \"type\": \"invalid_request_error\",\n    \"param\":
-        \"response_format\",\n    \"code\": null\n  }\n}","provider_name":"Azure"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Fri, 15 Aug 2025 17:41:25 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"}],"model":"openai/gpt-4o-mini","response_format":{"type":"json_schema","json_schema":{"name":"simple_response","strict":true,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
-        simple message"},"count":{"type":"integer","description":"An optional count"}},"required":["message","count"],"additionalProperties":false}}},"max_tokens":500}'
+      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"}],"model":"openai/gpt-4o-mini","max_tokens":500,"response_format":{"type":"json_schema","json_schema":{"name":"simple_response","strict":true,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
+        simple message"},"count":{"type":"integer","description":"A count (OpenRouter
+        requires all properties in required array)"}},"required":["message","count"],"additionalProperties":false}}}}'
     headers:
       Authorization:
       - Bearer <OPENROUTER_API_KEY>
@@ -86,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 18:35:07 GMT
+      - Wed, 20 Aug 2025 08:01:33 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -107,249 +50,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96faca38ed21ace1-MSP
+      - 97205d085b8bacd2-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755282907-Jh0YfBfIAlPnFILqJZVJ\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755282907,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"message\\\":\\\"Hello!
-        Hope you're having a great day!\\\",\\\"count\\\":1}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":62,\"completion_tokens\":17,\"total_tokens\":79,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 18:35:07 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"}],"model":"anthropic/claude-3-haiku","response_format":{"type":"json_schema","json_schema":{"name":"simple_response","strict":true,"schema":{"type":"object","properties":{"message":{"type":"string","description":"A
-        simple message"},"count":{"type":"integer","description":"An optional count"}},"required":["message","count"],"additionalProperties":false}}},"max_tokens":500}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 18:35:08 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96faca3dd80f6213-ORD
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755282907-GgYUlH4IZuFux9bj5N5t\",\"provider\":\"Anthropic\",\"model\":\"anthropic/claude-3-haiku\",\"object\":\"chat.completion\",\"created\":1755282907,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Here
-        is a simple greeting message:\\n\\nHello! Have a great day!\",\"refusal\":null,\"reasoning\":null}}],\"usage\":{\"prompt_tokens\":13,\"completion_tokens\":18,\"total_tokens\":31}}"
-  recorded_at: Fri, 15 Aug 2025 18:35:08 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"The following content failed
-        schema validation: Invalid JSON: unexpected token at ''Here is a simple greeting
-        message:\n\nHello! Have a great day!''\n\nContent to fix:\nHere is a simple
-        greeting message:\n\nHello! Have a great day!\n\nRequired schema:\n{\"name\":\"simple_response\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"A
-        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"An optional
-        count\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n\nPlease
-        fix this content to be valid JSON that matches the required schema exactly.
-        Return ONLY the fixed JSON, no explanations or additional text.\n"}],"model":"openai/gpt-4o-mini","max_tokens":2000,"temperature":0}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 18:35:08 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96faca42fae2a215-MSP
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755282908-xbo0C4qWpQWdp7wUqicj\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755282908,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
-        \ \\\"message\\\": \\\"Hello! Have a great day!\\\",\\n  \\\"count\\\": 1\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":140,\"completion_tokens\":21,\"total_tokens\":161,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 18:35:09 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"The following content failed
-        schema validation: Invalid JSON: unexpected token at ''Here is a simple greeting
-        message:\n\nHello! Have a great day!''\n\nContent to fix:\nHere is a simple
-        greeting message:\n\nHello! Have a great day!\n\nRequired schema:\n{\"name\":\"simple_response\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"A
-        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"An optional
-        count\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n\nPlease
-        fix this content to be valid JSON that matches the required schema exactly.
-        Return ONLY the fixed JSON, no explanations or additional text.\n"}],"model":"openai/gpt-4o-mini","max_tokens":2000,"temperature":0}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 18:38:25 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96facf10cefc6204-ORD
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755283105-inkRrJX3cD9wVLGiOKsY\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755283105,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
-        \ \\\"message\\\": \\\"Hello! Have a great day!\\\",\\n  \\\"count\\\": 1\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":140,\"completion_tokens\":21,\"total_tokens\":161,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 18:38:26 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"},{"role":"system","content":"You
-        must respond with valid JSON matching this exact schema:\n\n```json\n{\"name\":\"simple_response\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"A
-        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"An optional
-        count\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n```\n\nRules:\n-
-        Return ONLY the JSON object, no other text\n- Ensure all required fields are
-        present\n- Match the exact data types specified\n- Follow any format constraints
-        (email, date, etc.)\n- Do not include trailing commas or comments\n"}],"model":"anthropic/claude-3-haiku","max_tokens":500}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 18:39:37 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96fad0d1cfbc1e27-MSP
-    body:
-      encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755283177-KA8t7illgejDFEmIW6aQ\",\"provider\":\"Anthropic\",\"model\":\"anthropic/claude-3-haiku\",\"object\":\"chat.completion\",\"created\":1755283177,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"message\\\":\\\"Hello,
-        how can I assist you today?\\\",\\\"count\\\":1}\",\"refusal\":null,\"reasoning\":null}}],\"usage\":{\"prompt_tokens\":149,\"completion_tokens\":20,\"total_tokens\":169}}"
-  recorded_at: Fri, 15 Aug 2025 18:39:37 GMT
+      string: "\n         \n{\"id\":\"gen-1755676893-ufVXcXoKybAM4wYDJ1hN\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676893,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"message\\\":\\\"Hello!
+        Hope you're having a great day!\\\",\\\"count\\\":1}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":71,\"completion_tokens\":17,\"total_tokens\":88,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:01:34 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -358,71 +64,8 @@ http_interactions:
       string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"},{"role":"system","content":"Please
         format your output as a JSON value that conforms to the following JSON Schema
         specification:\n\n{\"name\":\"simple_response\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"A
-        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"An optional
-        count\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n\nYour
-        response should be valid JSON that matches this schema structure exactly.\n\nexample
-        format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
-        guidelines:\n- Ensure all required fields match the schema\n- Use proper JSON
-        formatting (no trailing commas)  \n- Return ONLY the JSON - no other text
-        or explanations\n"}],"model":"anthropic/claude-3-haiku","max_tokens":500}'
-    headers:
-      Authorization:
-      - Bearer <OPENROUTER_API_KEY>
-      Content-Type:
-      - application/json
-      X-Title:
-      - OpenRouter Ruby Client
-      Http-Referer:
-      - https://github.com/OlympiaAI/open_router
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Fri, 15 Aug 2025 18:59:59 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Origin:
-      - "*"
-      Vary:
-      - Accept-Encoding
-      Permissions-Policy:
-      - payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com"
-        "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")
-      Referrer-Policy:
-      - no-referrer, strict-origin-when-cross-origin
-      X-Content-Type-Options:
-      - nosniff
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 96faeea6f9a8a1d6-MSP
-    body:
-      encoding: ASCII-8BIT
-      string: '{"id":"gen-1755284399-klXSDmskTNW38jhQxT2l","provider":"Anthropic","model":"anthropic/claude-3-haiku","object":"chat.completion","created":1755284399,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"{\"message\":\"Hello,
-        how can I assist you today?\",\"count\":1}","refusal":null,"reasoning":null}}],"usage":{"prompt_tokens":177,"completion_tokens":20,"total_tokens":197}}'
-  recorded_at: Fri, 15 Aug 2025 18:59:59 GMT
-- request:
-    method: post
-    uri: https://openrouter.ai/api/v1/chat/completions
-    body:
-      encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Give me a simple greeting message"},{"role":"system","content":"Please
-        format your output as a JSON value that conforms to the following JSON Schema
-        specification:\n\n{\"name\":\"simple_response\",\"strict\":true,\"schema\":{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"A
-        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"An optional
-        count\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n\nYour
+        simple message\"},\"count\":{\"type\":\"integer\",\"description\":\"A count
+        (OpenRouter requires all properties in required array)\"}},\"required\":[\"message\",\"count\"],\"additionalProperties\":false}}\n\nYour
         response should be valid JSON that matches this schema structure exactly.\n\nexample
         format:\n```json\n{\"field1\": \"value1\", \"field2\": \"value2\"}\n```\n\nImportant
         guidelines:\n- Ensure all required fields match the schema\n- Use proper JSON
@@ -449,7 +92,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 21:24:07 GMT
+      - Wed, 20 Aug 2025 08:01:34 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -470,10 +113,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fbc1c7ab86b595-ORD
+      - 97205d0caf784ca4-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755293047-wz5e1BBV4lpLHijjGbVd","provider":"Anthropic","model":"anthropic/claude-3-haiku","object":"chat.completion","created":1755293047,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"{\"message\":\"Hello,
-        world!\",\"count\":1}","refusal":null,"reasoning":null}}],"usage":{"prompt_tokens":176,"completion_tokens":15,"total_tokens":191}}'
-  recorded_at: Fri, 15 Aug 2025 21:24:07 GMT
+      string: '{"id":"gen-1755676894-e75dJhF1E4KUCm9J2w2O","provider":"Anthropic","model":"anthropic/claude-3-haiku","object":"chat.completion","created":1755676894,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"{\"message\":\"Hello,
+        how can I assist you today?\",\"count\":1}","refusal":null,"reasoning":null}}],"usage":{"prompt_tokens":184,"completion_tokens":20,"total_tokens":204}}'
+  recorded_at: Wed, 20 Aug 2025 08:01:34 GMT
 recorded_with: VCR 6.3.1

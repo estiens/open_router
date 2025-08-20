@@ -37,18 +37,20 @@ puts model  # => "anthropic/claude-3.5-sonnet"
 ### Optimization Strategies
 
 ```ruby
-# Optimize for cost (default) - choose cheapest model
+# Optimize for cost - choose cheapest input token cost
 model = selector.optimize_for(:cost).choose
 
-# Optimize for performance - choose premium tier models
+# Optimize for performance - prefer premium tier, then by cost
 model = selector.optimize_for(:performance).choose
 
-# Optimize for latest models - choose newest available
+# Optimize for latest - prefer most recent model
 model = selector.optimize_for(:latest).choose
 
-# Optimize for context length - choose largest context window
+# Optimize for context - prefer largest context window
 model = selector.optimize_for(:context).choose
 ```
+
+**Note**: Sorting is nil-safe for `created_at` and `context_length`.
 
 ### Capability Requirements
 
@@ -94,10 +96,10 @@ model = OpenRouter::ModelSelector.new
                                  .choose
 ```
 
-### Provider Preferences
+### Provider Preferences and Filtering
 
 ```ruby
-# Soft preference - prefer these providers but don't exclude others
+# Soft preference - records preference but doesn't currently affect ordering
 selector.prefer_providers("anthropic", "openai")
 
 # Hard requirement - only these providers
@@ -109,6 +111,8 @@ selector.avoid_providers("google", "meta")
 # Avoid model patterns (glob syntax)
 selector.avoid_patterns("*-free", "*-preview", "*-alpha")
 ```
+
+**Note**: `prefer_providers` is available to record preferences but does not currently affect ordering. Filtering is enforced via `require_providers`/`avoid_providers`/`avoid_patterns`.
 
 ### Release Date Filtering
 
@@ -161,21 +165,20 @@ end
 ### Graceful Degradation
 
 ```ruby
-# Automatically relax requirements if no models match
+# choose_with_fallback drops least important requirements progressively if no match
 model = selector.require(:function_calling, :vision)
               .within_budget(max_cost: 0.001)  # Very strict budget
               .choose_with_fallback
-
-# This will:
-# 1. Try with all requirements
-# 2. If no match, drop release date requirement
-# 3. If no match, drop performance tier requirement
-# 4. If no match, drop output cost requirement
-# 5. If no match, drop context length requirement
-# 6. If no match, drop input cost requirement
-# 7. If no match, keep only capability requirements
-# 8. If no match, return cheapest available model
 ```
+
+**Drop order**:
+1. `released_after_date`
+2. `performance_tier`
+3. `max_output_cost`
+4. `min_context_length`
+5. `max_input_cost`
+6. Keep only capability requirements
+7. Otherwise choose the cheapest available model
 
 ## ModelRegistry
 

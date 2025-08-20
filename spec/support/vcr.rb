@@ -17,11 +17,11 @@ VCR.configure do |config|
   config.filter_sensitive_data("<OPEN_ROUTER_API_KEY>") { ENV["OPEN_ROUTER_API_KEY"] }
   config.filter_sensitive_data("<ACCESS_TOKEN>") { ENV["ACCESS_TOKEN"] }
 
-  # Recording mode based on environment
-  record_mode = if ci_environment?
-                  :none  # Never record in CI, use existing cassettes only
+  # Determine the recording mode based on environment variables and CI
+  record_mode = if ENV["CI"]
+                  :none # Never record in CI, use existing cassettes only
                 elsif ENV["VCR_RECORD_ALL"] == "true"
-                  :all   # Re-record everything when explicitly requested
+                  :all # Re-record everything when explicitly requested
                 elsif ENV["VCR_RECORD_NEW"] == "true"
                   :new_episodes # Record new interactions
                 else
@@ -38,7 +38,7 @@ VCR.configure do |config|
   # Key setting: Allow HTTP connections only when no cassette exists
   # In CI: false (use cassettes only), In development: true (allow recording)
   config.allow_http_connections_when_no_cassette = !ci_environment?
-
+\
   # Configure request matching
   config.configure_rspec_metadata!
 end

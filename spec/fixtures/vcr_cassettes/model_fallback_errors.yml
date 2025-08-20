@@ -27,7 +27,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Fri, 15 Aug 2025 19:02:43 GMT
+      - Wed, 20 Aug 2025 07:15:03 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 96faf2a7fd23607d-ORD
+      - 972018ed3822acde-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -52,5 +52,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"error":{"message":"nonexistent/fake-model is not a valid model ID","code":400},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Fri, 15 Aug 2025 19:02:43 GMT
+  recorded_at: Wed, 20 Aug 2025 07:15:03 GMT
 recorded_with: VCR 6.3.1

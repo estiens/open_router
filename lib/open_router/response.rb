@@ -301,124 +301,13 @@ module OpenRouter
       end
     end
 
-    # Healing methods
+    # Backward compatibility method that delegates to JsonHealer
     def heal_structured_response(content, schema)
-      max_attempts = @client.configuration.max_heal_attempts
-      healer_model = @client.configuration.healer_model
+      return JSON.parse(content) unless schema
 
-      attempts = 0
-      current_content = content
-
-      loop do
-        json = JSON.parse(current_content)
-
-        # If we have a schema, validate it
-        return json unless schema.respond_to?(:validate)
-        return json if schema.validate(json)
-
-        # Schema validation failed - get detailed errors
-        validation_errors = schema.validation_errors(json)
-        if attempts >= max_attempts
-          error_details = validation_errors.any? ? validation_errors.join(", ") : "Schema validation failed"
-          raise StructuredOutputError,
-                "Failed to pass schema validation after #{max_attempts} healing attempts. Last errors: #{error_details}"
-        end
-        attempts += 1
-        error_reason = "Schema validation failed with errors: #{validation_errors.join("; ")}"
-        current_content = fix_with_healer_model(current_content, schema, healer_model, error_reason)
-
-      # No schema validation, just return parsed JSON
-      rescue JSON::ParserError => e
-        # JSON parsing failed
-        if attempts >= max_attempts
-          # We have no attempts left. The last heal (if any) failed.
-          raise StructuredOutputError,
-                "Failed to parse structured output after #{max_attempts} healing attempts: #{e.message}"
-        end
-
-        # We have attempts remaining. Increment the counter and try to heal.
-        attempts += 1
-        current_content = fix_with_healer_model(current_content, schema, healer_model, "Invalid JSON: #{e.message}")
-      end
-    end
-
-    def fix_with_healer_model(content, schema, healer_model, error_reason)
-      fix_prompt = if schema
-                     build_schema_healing_prompt(content, schema, error_reason)
-                   else
-                     build_json_healing_prompt(content, error_reason)
-                   end
-
-      begin
-        healing_response = @client.complete(
-          [{ role: "user", content: fix_prompt }],
-          model: healer_model,
-          extras: { max_tokens: 2000, temperature: 0 }
-        )
-
-        healing_response.content
-      rescue StandardError
-        # If healing itself fails, return original content and let it fail naturally
-        content
-      end
-    end
-
-    def build_json_healing_prompt(content, error_reason)
-      <<~PROMPT
-        The following content has a JSON parsing error: #{error_reason}
-
-        Content to fix:
-        #{content}
-
-        Please fix this content to be valid JSON. Return ONLY the fixed JSON, no explanations or additional text.
-      PROMPT
-    end
-
-    def build_schema_healing_prompt(content, schema, error_reason)
-      schema_json = schema.respond_to?(:to_h) ? schema.to_h.to_json : schema.to_json
-
-      # Detect if this looks like a forced extraction case (contains explanation text)
-      is_forced_extraction = @forced_extraction && (content.include?("```") || content.length > 200 || content.include?("\n"))
-
-      if is_forced_extraction
-        <<~PROMPT
-          The following response contains explanatory text and JSON that needs to be extracted and fixed to conform to the provided schema.
-
-          Validation Errors:
-          #{error_reason}
-
-          Original Response Content:
-          #{content}
-
-          Required JSON Schema:
-          ```json
-          #{schema_json}
-          ```
-
-          Please extract and correct the JSON from the response above to produce a valid JSON object that strictly conforms to the schema.
-          Return ONLY the fixed, raw JSON object, without any surrounding text or explanations.
-        PROMPT
-      else
-        <<~PROMPT
-          The following JSON content is invalid because it failed to validate against the provided JSON Schema.
-
-          Validation Errors:
-          #{error_reason}
-
-          Original Content to Fix:
-          ```json
-          #{content}
-          ```
-
-          Required JSON Schema:
-          ```json
-          #{schema_json}
-          ```
-
-          Please correct the content to produce a valid JSON object that strictly conforms to the schema.
-          Return ONLY the fixed, raw JSON object, without any surrounding text or explanations.
-        PROMPT
-      end
+      healer = JsonHealer.new(@client)
+      context = @forced_extraction ? :forced_extraction : :generic
+      healer.heal(content, schema, context: context)
     end
   end
 end

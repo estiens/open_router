@@ -3,13 +3,6 @@
 require "json"
 
 module OpenRouter
-  begin
-    require "faraday_middleware"
-    HAS_JSON_MW = true
-  rescue LoadError
-    HAS_JSON_MW = false
-  end
-
   module HTTP
     def get(path:)
       response = conn.get(uri(path:)) do |req|
@@ -50,13 +43,13 @@ module OpenRouter
 
     # Normalize response body - parse JSON when middleware is not available
     def normalize_body(body)
-      return body if HAS_JSON_MW  # Let middleware handle it
+      return body if OpenRouter::HAS_JSON_MW # Let middleware handle it
       return body unless body.is_a?(String)
 
       begin
         JSON.parse(body)
       rescue JSON::ParserError
-        body  # Return original if not valid JSON
+        body # Return original if not valid JSON
       end
     end
 
@@ -84,7 +77,7 @@ module OpenRouter
         f.request(:multipart) if multipart
         # NOTE: Removed MiddlewareErrors reference - was undefined and @log_errors was never set
         f.response :raise_error
-        f.response :json if HAS_JSON_MW
+        f.response :json if OpenRouter::HAS_JSON_MW
 
         OpenRouter.configuration.faraday_config&.call(f)
       end

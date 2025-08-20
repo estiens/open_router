@@ -197,7 +197,8 @@ module OpenRouter
         input_cost = model_data.dig("pricing", "prompt").to_f
 
         # Higher cost generally indicates premium models
-        if input_cost > 0.01 # > $0.01 per 1k tokens
+        # Note: pricing is per token, not per 1k tokens
+        if input_cost > 0.000001 # > $0.001 per 1k tokens (converted from per-token)
           :premium
         else
           :standard

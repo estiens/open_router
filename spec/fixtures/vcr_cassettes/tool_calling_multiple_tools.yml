@@ -6,12 +6,12 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"messages":[{"role":"user","content":"What''s the weather like in
-        San Francisco?"}],"model":"openai/gpt-4o-mini","tools":[{"type":"function","function":{"name":"calculator","description":"Perform
+        San Francisco?"}],"model":"openai/gpt-4o-mini","max_tokens":500,"tools":[{"type":"function","function":{"name":"calculator","description":"Perform
         basic arithmetic operations","parameters":{"type":"object","properties":{"operation":{"type":"string","description":"The
         operation to perform: add, subtract, multiply, divide"},"a":{"type":"number","description":"First
         number"},"b":{"type":"number","description":"Second number"}},"required":["operation","a","b"]}}},{"type":"function","function":{"name":"get_weather","description":"Get
         current weather for a location","parameters":{"type":"object","properties":{"location":{"type":"string","description":"City
-        name"},"units":{"type":"string","description":"Temperature units (celsius/fahrenheit)"}},"required":["location"]}}}],"tool_choice":"auto","max_tokens":500}'
+        name"},"units":{"type":"string","description":"Temperature units (celsius/fahrenheit)"}},"required":["location"]}}}],"tool_choice":"auto"}'
     headers:
       Authorization:
       - Bearer <OPENROUTER_API_KEY>
@@ -33,7 +33,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:41:27 GMT
+      - Wed, 20 Aug 2025 08:01:36 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -54,10 +54,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7b9cf84661ab-ORD
+      - 97205d19dbdf4c9e-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755279687-NQui8eGSGqdFDPfwEo1b\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755279687,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_96QJTFl6gAtj0FviMAYRrUhF\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"location\\\":\\\"San
+      string: "\n         \n{\"id\":\"gen-1755676896-K2xJVPHHpcxkNIO8QDNU\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676896,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_reJGhqBA0knVHRPEj0nKMDXS\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"location\\\":\\\"San
         Francisco\\\"}\"}}]}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":114,\"completion_tokens\":15,\"total_tokens\":129,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:41:28 GMT
+  recorded_at: Wed, 20 Aug 2025 08:01:37 GMT
 recorded_with: VCR 6.3.1

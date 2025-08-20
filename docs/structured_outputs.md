@@ -2,15 +2,24 @@
 
 The OpenRouter gem provides comprehensive support for structured outputs using JSON Schema validation. This feature ensures that AI model responses conform to specific formats, making them easy to parse and integrate into your applications.
 
+**Important**: Add `faraday_middleware` to your Gemfile for proper JSON response parsing:
+
+```ruby
+# Gemfile
+gem "faraday_middleware"
+```
+
 ## Quick Start
 
 ```ruby
 # Define a schema
 user_schema = OpenRouter::Schema.define("user") do
-  string :name, required: true, description: "User's full name"
+  # Use JSON Schema keywords (camelCase): minLength, maxLength, etc.
+  string :name, required: true, description: "User's full name", minLength: 2, maxLength: 100
   integer :age, required: true, description: "User's age", minimum: 0, maximum: 150
   string :email, required: true, description: "Valid email address"
   boolean :premium, description: "Premium account status"
+  no_additional_properties
 end
 
 # Use with completion
@@ -21,7 +30,7 @@ response = client.complete(
 )
 
 # Access structured data
-user = response.structured_output
+user = response.structured_output  # Hash or raises StructuredOutputError in strict mode
 puts user["name"]    # => "John Doe"
 puts user["age"]     # => 30
 puts user["email"]   # => "john@example.com"
@@ -36,10 +45,10 @@ The gem provides a fluent DSL for defining JSON schemas with validation rules:
 
 ```ruby
 schema = OpenRouter::Schema.define("example") do
-  # String properties
+  # String properties - use JSON Schema keywords (camelCase)
   string :name, required: true, description: "Name field"
   string :category, enum: ["A", "B", "C"], description: "Category selection"
-  string :content, min_length: 10, max_length: 1000
+  string :content, minLength: 10, maxLength: 1000
   
   # Numeric properties
   integer :count, minimum: 0, maximum: 100
@@ -48,12 +57,12 @@ schema = OpenRouter::Schema.define("example") do
   # Boolean properties
   boolean :active, description: "Active status"
   
-  # Additional validation
-  no_additional_properties  # Strict schema - no extra fields allowed
+  # Strict schema - no extra fields allowed
+  no_additional_properties
 end
 ```
 
-### Complex Objects
+### Complex Objects and Arrays
 
 ```ruby
 order_schema = OpenRouter::Schema.define("order") do
@@ -63,23 +72,25 @@ order_schema = OpenRouter::Schema.define("order") do
   object :customer, required: true do
     string :name, required: true
     string :email, required: true
-    object :address do
+    object :address, required: true do
       string :street, required: true
       string :city, required: true
       string :zip_code, required: true
     end
+    no_additional_properties
   end
   
-  # Array of objects
-  array :items, required: true, description: "Order items" do
-    items do
-      object do
-        string :product_id, required: true
-        integer :quantity, required: true, minimum: 1
-        number :unit_price, required: true, minimum: 0
-      end
-    end
-  end
+  # Array of objects - use explicit items hash for complex objects
+  array :items, required: true, description: "Order items", items: {
+    type: "object",
+    properties: {
+      product_id: { type: "string" },
+      quantity: { type: "integer", minimum: 1 },
+      unit_price: { type: "number", minimum: 0 }
+    },
+    required: ["product_id", "quantity", "unit_price"],
+    additionalProperties: false
+  }
   
   # Simple array
   array :tags, description: "Order tags", items: { type: "string" }
@@ -89,29 +100,26 @@ order_schema = OpenRouter::Schema.define("order") do
 end
 ```
 
+**Note**: Use JSON Schema keywords (camelCase): `minLength`, `maxLength`, `minItems`, `maxItems`, `patternProperties`, etc.
+
 ### Advanced Features
 
 ```ruby
 advanced_schema = OpenRouter::Schema.define("advanced") do
-  # Conditional schemas
+  # Enum constraints
   string :type, required: true, enum: ["personal", "business"]
-  
-  # You can add conditional logic in your application code
-  # based on the type field
   
   # Pattern matching for strings
   string :phone, pattern: "^\\+?[1-9]\\d{1,14}$", description: "Phone number"
   
-  # Multiple types (union types)
-  # Note: JSON Schema supports this, but implementation depends on the model
-  
-  # Default values
-  string :status, default: "pending", enum: ["pending", "active", "inactive"]
+  # Length constraints
+  string :description, 
+         description: "Detailed description (minimum 50 characters for quality)", 
+         minLength: 50, maxLength: 1000
   
   # Rich descriptions for better model understanding
-  string :description, 
-         description: "Detailed description of the item (minimum 50 characters for quality)", 
-         min_length: 50
+  string :priority, enum: ["low", "medium", "high"], 
+         description: "Priority level - use 'high' for urgent items"
 end
 ```
 
@@ -163,36 +171,47 @@ api_response_schema = OpenRouter::Schema.from_hash("api_response", {
 
 ## Response Handling
 
-### Basic Usage
+### Strict vs Gentle Modes
 
 ```ruby
 response = client.complete(messages, response_format: schema)
 
-# Check if response has structured output
-if response.has_structured_output?
-  data = response.structured_output
-  # Process structured data
+# Strict mode (default) – parses JSON and validates; may raise StructuredOutputError
+data = response.structured_output
+
+# Gentle mode – best-effort JSON parse; returns nil on failure, no validation
+data = response.structured_output(mode: :gentle)  # => Hash or nil
+
+# Check validity (may trigger healing if auto_heal_responses is true)
+if response.valid_structured_output?
+  puts "Valid structured output"
 else
-  # Handle fallback to regular text response
-  content = response.content
+  puts "Errors: #{response.validation_errors.join(", ")}"
 end
 ```
 
-### Validation
+**Tip**: There is no `response.has_structured_output?` helper. To check "presence," either:
+- Call `response.structured_output(mode: :gentle)` and test for `nil`, or
+- Check that you provided `response_format` and response has content
+
+### Native vs Forced Structured Outputs
+
+If the model supports structured outputs natively, the gem sends your schema to the API directly. If not:
 
 ```ruby
-# Validate response against schema (requires json-schema gem)
-if response.valid_structured_output?
-  puts "Response is valid!"
-  data = response.structured_output
-else
-  puts "Validation errors:"
-  response.validation_errors.each { |error| puts "- #{error}" }
-  
-  # You might still want to use the data despite validation errors
-  data = response.structured_output
+# Configuration for unsupported models
+OpenRouter.configure do |config|
+  config.auto_force_on_unsupported_models = true # default - inject format instructions
+  config.strict_mode = false                     # warn instead of raise on missing capability
+  config.default_structured_output_mode = :strict
 end
 ```
+
+When `auto_force_on_unsupported_models` is `true`, the gem:
+1. Injects format instructions into messages (forced extraction)
+2. Parses/extracts JSON from text, optionally healing it if enabled
+
+If `false`, using structured outputs on unsupported models raises a `CapabilityError` in strict mode.
 
 ### Error Handling
 
@@ -224,7 +243,7 @@ end
 # Good: Clear, constrained schema
 product_schema = OpenRouter::Schema.define("product") do
   string :name, required: true, description: "Product name (2-100 characters)", 
-         min_length: 2, max_length: 100
+         minLength: 2, maxLength: 100
   string :category, required: true, enum: ["electronics", "clothing", "books"], 
          description: "Product category"
   number :price, required: true, minimum: 0.01, maximum: 999999.99, 
@@ -278,26 +297,36 @@ end
 ### Debugging
 
 ```ruby
-# Enable debug mode to see schema being sent
-schema = OpenRouter::Schema.define("debug_example") do
-  string :result, required: true
-end
+# API schema sent to OpenRouter (all properties appear required)
+puts JSON.pretty_generate(user_schema.to_h)
 
-puts "Schema being sent:"
-puts JSON.pretty_generate(schema.to_json_schema)
+# Raw JSON Schema for local validation
+puts JSON.pretty_generate(user_schema.pure_schema)
 
-response = client.complete(messages, response_format: schema)
-
-puts "Raw response:"
-puts response["choices"][0]["message"]["content"]
-
-puts "Parsed structured output:"
+response = client.complete(messages, response_format: user_schema)
+puts response.content
 puts response.structured_output.inspect
+```
+
+**Key Distinction**:
+- `Schema#to_h` returns the OpenRouter payload respecting your DSL required flags
+- `Schema#pure_schema` returns the raw JSON Schema for local validation (when using the json-schema gem)
+
+### Validation (Optional)
+
+If you have the `json-schema` gem installed:
+
+```ruby
+# schema.pure_schema is the raw JSON Schema (respects your required fields)
+if schema.validation_available?
+  ok = schema.validate(data)                # => true/false
+  errors = schema.validation_errors(data)   # => Array<String>
+end
 ```
 
 ### Response Healing
 
-The gem includes automatic healing for malformed JSON responses from models that don't natively support structured outputs:
+The gem includes automatic healing for malformed JSON responses:
 
 ```ruby
 # Configure healing globally
@@ -306,43 +335,19 @@ OpenRouter.configure do |config|
   config.healer_model = "openai/gpt-4o-mini"
   config.max_heal_attempts = 2
 end
-
-# When using models without native structured output support,
-# the gem automatically attempts to heal malformed responses
-response = client.complete(
-  [{ role: "user", content: "Generate user data for John Doe" }],
-  model: "some/model-without-native-support",
-  response_format: user_schema
-)
-
-# The response will be automatically healed if the JSON is malformed
-user = response.structured_output  # Parsed and potentially healed
 ```
 
-#### How Healing Works
+**Notes**:
+- In strict mode, `response.structured_output` may invoke the healer if JSON is invalid or schema validation fails and `auto_heal_responses` is `true`
+- Healing sends a secondary request with instructions to fix JSON according to your schema
 
-1. **Detection**: If JSON parsing fails, healing is triggered
-2. **Healing Request**: The healer model receives the original schema and malformed response
-3. **Correction**: The healer attempts to fix the JSON while preserving semantic content
-4. **Validation**: The healed response is validated against the original schema
-5. **Fallback**: If healing fails, the original error is preserved
+### Format Instructions
 
-#### Healing Configuration
+You can preview the system instructions the model receives when forcing:
 
 ```ruby
-OpenRouter.configure do |config|
-  # Enable/disable automatic healing
-  config.auto_heal_responses = true
-  
-  # Model to use for healing (should be reliable with JSON)
-  config.healer_model = "openai/gpt-4o-mini"
-  
-  # Maximum healing attempts before giving up
-  config.max_heal_attempts = 2
-  
-  # Whether to automatically force structured outputs on unsupported models
-  config.auto_force_on_unsupported_models = true
-end
+schema = OpenRouter::Schema.define("example") { string :title, required: true }
+puts schema.get_format_instructions  # or get_format_instructions(forced: true)
 ```
 
 ## Common Patterns

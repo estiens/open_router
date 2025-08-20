@@ -61,7 +61,7 @@ comprehensive_tool = OpenRouter::Tool.define do
     # String parameters
     string :name, required: true, description: "Required string parameter"
     string :category, enum: ["A", "B", "C"], description: "String with allowed values"
-    string :content, min_length: 10, max_length: 1000, description: "String with length constraints"
+    string :content, minLength: 10, maxLength: 1000, description: "String with length constraints"
     string :pattern_field, pattern: "^[A-Z]{2,3}$", description: "String with regex pattern"
     
     # Numeric parameters
@@ -159,22 +159,22 @@ data_analysis_tool = OpenRouter::Tool.define do
       maximum: 100 
     }
     
-    # Array of objects (complex items)
-    array :filters, description: "Data filters" do
-      items do
-        object do
-          string :column, required: true, description: "Column to filter"
-          string :operator, required: true, enum: ["eq", "ne", "gt", "lt", "in", "not_in"]
-          # Note: 'value' can be string, number, or array depending on operator
-          string :value_type, required: true, enum: ["string", "number", "array"]
-          string :value, description: "Filter value (format depends on value_type)"
-        end
-      end
-    end
+    # Array of objects - use explicit items hash for complex objects
+    array :filters, description: "Data filters", items: {
+      type: "object",
+      properties: {
+        column: { type: "string", description: "Column to filter" },
+        operator: { type: "string", enum: ["eq", "ne", "gt", "lt", "in", "not_in"] },
+        value_type: { type: "string", enum: ["string", "number", "array"] },
+        value: { type: "string", description: "Filter value (format depends on value_type)" }
+      },
+      required: ["column", "operator", "value_type"],
+      additionalProperties: false
+    }
     
     # Array with min/max items
     array :metrics, required: true, description: "Metrics to calculate", 
-          min_items: 1, max_items: 10, items: { 
+          minItems: 1, maxItems: 10, items: { 
             type: "string", 
             enum: ["mean", "median", "mode", "std", "var", "min", "max"] 
           }
@@ -322,41 +322,34 @@ end
 
 When a model uses tools, you receive `ToolCall` objects with helpful methods:
 
-### ToolCall Properties
+### ToolCall Object
+
+Properties and helpers you can rely on:
+
+- `id`: String
+- `type`: String (e.g., "function")
+- `name`: tool function name
+- `arguments_string`: raw JSON string
+- `arguments`: parsed Hash (raises `ToolCallError` on invalid JSON)
+- `to_message`: assistant message with the original `tool_calls` field
+- `to_result_message(result)`: tool message payload with `tool_call_id` and JSON content
+- `execute { |name, arguments| ... }`: returns an `OpenRouter::ToolResult` (success/failure), where:
+  - `success?`: boolean
+  - `to_message`: a tool message suitable for conversation continuation
+
+Example:
 
 ```ruby
-tool_call = response.tool_calls.first
+response.tool_calls.each do |tool_call|
+  tool_result = tool_call.execute do |name, args|
+    case name
+    when "get_weather" then fetch_weather(args["location"], args["units"])
+    else { error: "unknown tool: #{name}" }
+    end
+  end
 
-puts tool_call.id          # => "call_abc123" (unique identifier)
-puts tool_call.name        # => "get_weather" (tool name)
-puts tool_call.arguments   # => { "location" => "London", "units" => "celsius" }
-puts tool_call.raw_data    # => Raw API response data
-```
-
-### ToolCall Methods
-
-```ruby
-# Validation
-if tool_call.valid?
-  puts "Arguments are valid"
-else
-  puts "Validation errors: #{tool_call.validation_errors}"
+  conversation << tool_result.to_message
 end
-
-# Convert to API format
-api_format = tool_call.to_api_format
-# => { id: "call_abc123", type: "function", function: { name: "get_weather", arguments: "{...}" } }
-
-# Create result messages for conversation continuation
-success_result = tool_call.to_result_message({ temperature: 22, condition: "sunny" })
-error_result = tool_call.to_result_message("Error: Location not found")
-
-# The result message format:
-# {
-#   role: "tool",
-#   tool_call_id: "call_abc123",
-#   content: "{\"temperature\":22,\"condition\":\"sunny\"}" # JSON string
-# }
 ```
 
 ## Advanced Usage Patterns

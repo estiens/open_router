@@ -27,7 +27,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:40:35 GMT
+      - Wed, 20 Aug 2025 07:20:26 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 96fa7a526c40ad18-MSP
+      - 972020cd8abd4ca5-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -53,7 +53,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"error":{"message":"nonexistent/fake-model-12345 is not a valid model
         ID","code":400},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Fri, 15 Aug 2025 17:40:35 GMT
+  recorded_at: Wed, 20 Aug 2025 07:20:26 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -81,7 +81,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:40:36 GMT
+      - Wed, 20 Aug 2025 07:29:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -102,10 +102,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa7a5a7a087816-MSP
+      - 97202daeea1fa1c1-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n{\"id\":\"gen-1755279635-fO56OpwwxAJ9Rr4V9WGr\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4\",\"object\":\"chat.completion\",\"created\":1755279635,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Hello!
+      string: "\n         \n\n         \n{\"id\":\"gen-1755674954-5m6Qk4POuEFUsAkkebK4\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4\",\"object\":\"chat.completion\",\"created\":1755674954,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Hello!
         How can I assist you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":8,\"completion_tokens\":9,\"total_tokens\":17,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Fri, 15 Aug 2025 17:40:36 GMT
+  recorded_at: Wed, 20 Aug 2025 07:29:15 GMT
 recorded_with: VCR 6.3.1

@@ -19,7 +19,6 @@ RSpec.describe OpenRouter::ToolCall do
       expect(tool_call.id).to eq("call_abc123")
       expect(tool_call.type).to eq("function")
       expect(tool_call.function_name).to eq("search_books")
-      expect(tool_call.name).to eq("search_books")
     end
 
     it "raises error for invalid data" do
@@ -107,7 +106,7 @@ RSpec.describe OpenRouter::ToolCall do
 
       expect(message[:role]).to eq("tool")
       expect(message[:tool_call_id]).to eq("call_abc123")
-      expect(message[:name]).to eq("search_books")
+      expect(message).not_to have_key(:name) # Name should not be included per OpenRouter/OpenAI spec
       expect(message[:content]).to eq("Search completed")
     end
 

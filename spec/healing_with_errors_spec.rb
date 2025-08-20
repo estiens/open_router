@@ -233,7 +233,7 @@ RSpec.describe "Self-healing with detailed error context" do
 
       expect do
         response.structured_output(auto_heal: true)
-      end.to raise_error(OpenRouter::StructuredOutputError, /Last errors:.*(age|status).*(age|status)/)
+      end.to raise_error(OpenRouter::StructuredOutputError, /Last error:.*(age|status)/)
     end
   end
 

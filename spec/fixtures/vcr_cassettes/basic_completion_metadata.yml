@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Aug 2025 17:28:44 GMT
+      - Wed, 20 Aug 2025 07:14:46 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,10 +48,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 96fa68fa9c424fa9-ORD
+      - 9720188078b54c91-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755278923-cGiHMp5cdYCZZpUT5I4V","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755278923,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
-        world!","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":4,"total_tokens":14,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Fri, 15 Aug 2025 17:28:44 GMT
+      string: '{"id":"gen-1755674086-LkOOGtYJ8orKJZsTq5Do","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755674086,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello
+        world!","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":3,"total_tokens":13,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
+  recorded_at: Wed, 20 Aug 2025 07:14:46 GMT
 recorded_with: VCR 6.3.1

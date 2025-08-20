@@ -4,6 +4,7 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/indifferent_access"
 
 require_relative "http"
+require "pry"
 
 module OpenRouter
   class ServerError < StandardError; end
@@ -40,102 +41,14 @@ module OpenRouter
     # @return [Response] The completion response wrapped in a Response object.
     def complete(messages, model: "openrouter/auto", providers: [], transforms: [], tools: [], tool_choice: nil,
                  response_format: nil, force_structured_output: nil, extras: {}, stream: nil)
-      parameters = { messages: messages.dup }
-      if model.is_a?(String)
-        parameters[:model] = model
-      elsif model.is_a?(Array)
-        parameters[:models] = model
-        parameters[:route] = "fallback"
-      end
-      parameters[:provider] = { order: providers } if providers.any?
-      parameters[:transforms] = transforms if transforms.any?
+      parameters = prepare_base_parameters(messages, model, providers, transforms, stream, extras)
+      forced_extraction = configure_tools_and_structured_outputs!(parameters, model, tools, tool_choice, response_format, force_structured_output)
+      validate_vision_support(model, messages)
 
-      # Add tool calling support
-      if tools.any?
-        warn_if_unsupported(model, :function_calling, "tool calling")
-        parameters[:tools] = serialize_tools(tools)
-        parameters[:tool_choice] = tool_choice if tool_choice
-      end
+      raw_response = execute_request(parameters)
+      validate_response!(raw_response, stream)
 
-      # Add structured output support
-      forced_extraction = false
-      if response_format
-        # Auto-detect if we should force based on model capabilities
-        if force_structured_output.nil?
-          if model.is_a?(String) && model != "openrouter/auto" && !ModelRegistry.has_capability?(model, :structured_outputs) && configuration.auto_force_on_unsupported_models
-            warn "[OpenRouter] Model '#{model}' doesn't support native structured outputs. Automatically using forced extraction mode."
-            force_structured_output = true
-          else
-            force_structured_output = false
-          end
-        end
-
-        if force_structured_output
-          # Forced path - inject instructions, DON'T send response_format to API
-          # In strict mode, still validate to ensure user is aware of capability limits
-          warn_if_unsupported(model, :structured_outputs, "structured outputs") if configuration.strict_mode
-          inject_schema_instructions!(parameters[:messages], response_format)
-          forced_extraction = true
-        else
-          # Native path - send to API, always validate capabilities
-          warn_if_unsupported(model, :structured_outputs, "structured outputs")
-          parameters[:response_format] = serialize_response_format(response_format)
-        end
-      end
-
-      # Check for vision support if messages contain images
-      warn_if_unsupported(model, :vision, "vision/image processing") if messages_contain_images?(messages)
-
-      parameters[:stream] = stream if stream
-      parameters.merge!(extras)
-
-      begin
-        raw_response = post(path: "/chat/completions", parameters:)
-      rescue ConfigurationError => e
-        # Convert configuration errors to server errors for consistent API
-        raise ServerError, e.message
-      rescue Faraday::Error => e
-        # Re-raise certain errors that tests and applications might expect
-        case e
-        when Faraday::UnauthorizedError
-          # Let UnauthorizedError bubble up for testing capability validation
-          raise e
-        when Faraday::BadRequestError
-          # Try to extract error message from response body (may be parsed JSON or raw string)
-          error_message = e.message
-          if e.response&.dig(:body).is_a?(Hash)
-            error_message = e.response.dig(:body, "error", "message") || error_message
-          elsif e.response&.dig(:body).is_a?(String)
-            # Try to parse JSON error message
-            begin
-              parsed_body = JSON.parse(e.response[:body])
-              error_message = parsed_body.dig("error", "message") || error_message
-            rescue JSON::ParserError
-              # Use original message if JSON parsing fails
-            end
-          end
-          raise ServerError, "Bad Request: #{error_message}"
-        when Faraday::ServerError
-          raise ServerError, "Server Error: #{e.message}"
-        else
-          raise ServerError, "Network Error: #{e.message}"
-        end
-      end
-
-      raise ServerError, raw_response.dig("error", "message") if raw_response.presence&.dig("error", "message").present?
-
-      if stream.blank? && raw_response.blank?
-        raise ServerError,
-              "Empty response from OpenRouter. Might be worth retrying once or twice."
-      end
-
-      # Return a Response object instead of raw hash
-      response = Response.new(raw_response, response_format:, forced_extraction:)
-
-      # Always set client reference for configuration access
-      response.client = self
-
-      response
+      build_response(raw_response, response_format, forced_extraction)
     end
 
     # Fetches the list of available models from the OpenRouter API.
@@ -275,6 +188,172 @@ module OpenRouter
     end
 
     private
+
+    # Prepare the base parameters for the API request
+    def prepare_base_parameters(messages, model, providers, transforms, stream, extras)
+      parameters = { messages: messages.dup }
+
+      configure_model_parameter!(parameters, model)
+      configure_provider_parameter!(parameters, providers)
+      configure_transforms_parameter!(parameters, transforms)
+      configure_stream_parameter!(parameters, stream)
+
+      parameters.merge!(extras)
+      parameters
+    end
+
+    # Configure the model parameter (single model or fallback array)
+    def configure_model_parameter!(parameters, model)
+      if model.is_a?(String)
+        parameters[:model] = model
+      elsif model.is_a?(Array)
+        parameters[:models] = model
+        parameters[:route] = "fallback"
+      end
+    end
+
+    # Configure the provider parameter if providers are specified
+    def configure_provider_parameter!(parameters, providers)
+      parameters[:provider] = { order: providers } if providers.any?
+    end
+
+    # Configure the transforms parameter if transforms are specified
+    def configure_transforms_parameter!(parameters, transforms)
+      parameters[:transforms] = transforms if transforms.any?
+    end
+
+    # Configure the stream parameter if streaming is enabled
+    def configure_stream_parameter!(parameters, stream)
+      parameters[:stream] = stream if stream
+    end
+
+    # Configure tools and structured outputs, returning forced_extraction flag
+    def configure_tools_and_structured_outputs!(parameters, model, tools, tool_choice, response_format, force_structured_output)
+      configure_tool_calling!(parameters, model, tools, tool_choice)
+      configure_structured_outputs!(parameters, model, response_format, force_structured_output)
+    end
+
+    # Configure tool calling support
+    def configure_tool_calling!(parameters, model, tools, tool_choice)
+      return unless tools.any?
+
+      warn_if_unsupported(model, :function_calling, "tool calling")
+      parameters[:tools] = serialize_tools(tools)
+      parameters[:tool_choice] = tool_choice if tool_choice
+    end
+
+    # Configure structured output support and return forced_extraction flag
+    def configure_structured_outputs!(parameters, model, response_format, force_structured_output)
+      return false unless response_format
+
+      force_structured_output = determine_forced_extraction_mode(model, force_structured_output)
+
+      if force_structured_output
+        handle_forced_structured_output!(parameters, model, response_format)
+        true
+      else
+        handle_native_structured_output!(parameters, model, response_format)
+        false
+      end
+    end
+
+    # Determine whether to use forced extraction mode
+    def determine_forced_extraction_mode(model, force_structured_output)
+      return force_structured_output unless force_structured_output.nil?
+
+      if model.is_a?(String) &&
+         model != "openrouter/auto" &&
+         !ModelRegistry.has_capability?(model, :structured_outputs) &&
+         configuration.auto_force_on_unsupported_models
+        warn "[OpenRouter] Model '#{model}' doesn't support native structured outputs. Automatically using forced extraction mode."
+        true
+      else
+        false
+      end
+    end
+
+    # Handle forced structured output mode
+    def handle_forced_structured_output!(parameters, model, response_format)
+      # In strict mode, still validate to ensure user is aware of capability limits
+      warn_if_unsupported(model, :structured_outputs, "structured outputs") if configuration.strict_mode
+      inject_schema_instructions!(parameters[:messages], response_format)
+    end
+
+    # Handle native structured output mode
+    def handle_native_structured_output!(parameters, model, response_format)
+      warn_if_unsupported(model, :structured_outputs, "structured outputs")
+      parameters[:response_format] = serialize_response_format(response_format)
+    end
+
+    # Validate vision support if messages contain images
+    def validate_vision_support(model, messages)
+      warn_if_unsupported(model, :vision, "vision/image processing") if messages_contain_images?(messages)
+    end
+
+    # Execute the HTTP request with comprehensive error handling
+    def execute_request(parameters)
+      post(path: "/chat/completions", parameters: parameters)
+    rescue ConfigurationError => e
+      raise ServerError, e.message
+    rescue Faraday::Error => e
+      handle_faraday_error(e)
+    end
+
+    # Handle Faraday errors with specific error message extraction
+    def handle_faraday_error(error)
+      case error
+      when Faraday::UnauthorizedError
+        raise error
+      when Faraday::BadRequestError
+        error_message = extract_error_message(error)
+        raise ServerError, "Bad Request: #{error_message}"
+      when Faraday::ServerError
+        raise ServerError, "Server Error: #{error.message}"
+      else
+        raise ServerError, "Network Error: #{error.message}"
+      end
+    end
+
+    # Extract error message from Faraday error response
+    def extract_error_message(error)
+      return error.message unless error.response&.dig(:body)
+
+      body = error.response[:body]
+
+      if body.is_a?(Hash)
+        body.dig("error", "message") || error.message
+      elsif body.is_a?(String)
+        extract_error_from_json_string(body) || error.message
+      else
+        error.message
+      end
+    end
+
+    # Extract error message from JSON string response
+    def extract_error_from_json_string(json_string)
+      parsed_body = JSON.parse(json_string)
+      parsed_body.dig("error", "message")
+    rescue JSON::ParserError
+      nil
+    end
+
+    # Validate the API response for errors
+    def validate_response!(raw_response, stream)
+      if raw_response.presence&.dig("error", "message").present?
+        raise ServerError, raw_response.dig("error", "message")
+      end
+
+      return unless stream.blank? && raw_response.blank?
+
+      raise ServerError, "Empty response from OpenRouter. Might be worth retrying once or twice."
+    end
+
+    # Build and configure the Response object
+    def build_response(raw_response, response_format, forced_extraction)
+      response = Response.new(raw_response, response_format: response_format, forced_extraction: forced_extraction)
+      response.client = self
+      response
+    end
 
     # Warn if a model is being used with an unsupported capability
     def warn_if_unsupported(model, capability, feature_name)

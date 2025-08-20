@@ -5,8 +5,9 @@ require "faraday/multipart"
 
 begin
   require "faraday_middleware"
+  module OpenRouter; HAS_JSON_MW = true; end
 rescue LoadError
-  # faraday_middleware not available - JSON middleware is built into Faraday 2.x
+  module OpenRouter; HAS_JSON_MW = false; end
 end
 
 module OpenRouter
@@ -19,6 +20,7 @@ require_relative "open_router/http"
 require_relative "open_router/tool"
 require_relative "open_router/tool_call"
 require_relative "open_router/schema"
+require_relative "open_router/json_healer"
 require_relative "open_router/response"
 require_relative "open_router/model_registry"
 require_relative "open_router/model_selector"

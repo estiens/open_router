@@ -65,11 +65,16 @@ module OpenRouter
 
     # Convert a tool result to a tool message for the conversation
     def to_result_message(result)
+      content = case result
+                when String then result
+                when nil then ""
+                else result.to_json
+                end
+
       {
         role: "tool",
         tool_call_id: @id,
-        name: @function_name,
-        content: result.is_a?(String) ? result : result.to_json
+        content: content
       }
     end
 
@@ -86,6 +91,56 @@ module OpenRouter
 
     def to_json(*args)
       to_h.to_json(*args)
+    end
+
+    # Validate against a provided array of tools (Tool instances or hashes)
+    def valid?(tools:)
+      # tools is now a required keyword argument
+
+      schema = find_schema_for_call(tools)
+      return true unless schema # No validation if tool not found
+
+      return JSON::Validator.validate(schema, arguments) if validation_available?
+
+      # Fallback: shallow required check
+      required = Array(schema[:required]).map(&:to_s)
+      required.all? { |k| arguments.key?(k) }
+    rescue StandardError
+      false
+    end
+
+    def validation_errors(tools:)
+      # tools is now a required keyword argument
+
+      schema = find_schema_for_call(tools)
+      return [] unless schema # No errors if tool not found
+
+      return JSON::Validator.fully_validate(schema, arguments) if validation_available?
+
+      # Fallback: check required fields
+      required = Array(schema[:required]).map(&:to_s)
+      missing = required.reject { |k| arguments.key?(k) }
+      missing.any? ? ["Missing required keys: #{missing.join(", ")}"] : []
+    rescue StandardError => e
+      ["Validation error: #{e.message}"]
+    end
+
+    private
+
+    # Check if JSON schema validation is available
+    def validation_available?
+      !!defined?(JSON::Validator)
+    end
+
+    def find_schema_for_call(tools)
+      tool = Array(tools).find do |t|
+        t_name = t.is_a?(OpenRouter::Tool) ? t.name : t.dig(:function, :name)
+        t_name == @function_name
+      end
+      return nil unless tool
+
+      params = tool.is_a?(OpenRouter::Tool) ? tool.parameters : tool.dig(:function, :parameters)
+      params.is_a?(Hash) ? params : nil
     end
   end
 
