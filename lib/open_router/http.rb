@@ -3,15 +3,23 @@
 require "json"
 
 module OpenRouter
+  begin
+    require "faraday_middleware"
+    HAS_JSON_MW = true
+  rescue LoadError
+    HAS_JSON_MW = false
+  end
+
   module HTTP
     def get(path:)
-      conn.get(uri(path:)) do |req|
+      response = conn.get(uri(path:)) do |req|
         req.headers = headers
-      end&.body
+      end
+      normalize_body(response&.body)
     end
 
     def post(path:, parameters:)
-      conn.post(uri(path:)) do |req|
+      response = conn.post(uri(path:)) do |req|
         if parameters[:stream].respond_to?(:call)
           req.options.on_data = to_json_stream(user_proc: parameters[:stream])
           parameters[:stream] = true # Necessary to tell OpenRouter to stream.
@@ -19,23 +27,38 @@ module OpenRouter
 
         req.headers = headers
         req.body = parameters.to_json
-      end&.body
+      end
+      normalize_body(response&.body)
     end
 
     def multipart_post(path:, parameters: nil)
-      conn(multipart: true).post(uri(path:)) do |req|
+      response = conn(multipart: true).post(uri(path:)) do |req|
         req.headers = headers.merge({ "Content-Type" => "multipart/form-data" })
         req.body = multipart_parameters(parameters)
-      end&.body
+      end
+      normalize_body(response&.body)
     end
 
     def delete(path:)
-      conn.delete(uri(path:)) do |req|
+      response = conn.delete(uri(path:)) do |req|
         req.headers = headers
-      end&.body
+      end
+      normalize_body(response&.body)
     end
 
     private
+
+    # Normalize response body - parse JSON when middleware is not available
+    def normalize_body(body)
+      return body if HAS_JSON_MW  # Let middleware handle it
+      return body unless body.is_a?(String)
+
+      begin
+        JSON.parse(body)
+      rescue JSON::ParserError
+        body  # Return original if not valid JSON
+      end
+    end
 
     # Given a proc, returns an outer proc that can be used to iterate over a JSON stream of chunks.
     # For each chunk, the inner user_proc is called giving it the JSON object. The JSON object could
@@ -61,7 +84,7 @@ module OpenRouter
         f.request(:multipart) if multipart
         # NOTE: Removed MiddlewareErrors reference - was undefined and @log_errors was never set
         f.response :raise_error
-        f.response :json
+        f.response :json if HAS_JSON_MW
 
         OpenRouter.configuration.faraday_config&.call(f)
       end

@@ -101,7 +101,19 @@ module OpenRouter
           # Let UnauthorizedError bubble up for testing capability validation
           raise e
         when Faraday::BadRequestError
-          error_message = e.response&.dig(:body, "error", "message") || e.message
+          # Try to extract error message from response body (may be parsed JSON or raw string)
+          error_message = e.message
+          if e.response&.dig(:body).is_a?(Hash)
+            error_message = e.response.dig(:body, "error", "message") || error_message
+          elsif e.response&.dig(:body).is_a?(String)
+            # Try to parse JSON error message
+            begin
+              parsed_body = JSON.parse(e.response[:body])
+              error_message = parsed_body.dig("error", "message") || error_message
+            rescue JSON::ParserError
+              # Use original message if JSON parsing fails
+            end
+          end
           raise ServerError, "Bad Request: #{error_message}"
         when Faraday::ServerError
           raise ServerError, "Server Error: #{e.message}"
