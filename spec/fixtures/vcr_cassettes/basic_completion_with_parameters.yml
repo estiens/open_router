@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:44 GMT
+      - Wed, 20 Aug 2025 08:02:07 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,10 +48,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97201874cd5a510e-MSP
+      - 97205ddac834a1c9-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674084-fDtciRxhyg5nc9X3kEil","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755674084,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
+      string: '{"id":"gen-1755676927-zzsj9AheqKnZhweFj4O6","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755676927,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
         world!","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":4,"total_tokens":14,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Wed, 20 Aug 2025 07:14:44 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:07 GMT
 recorded_with: VCR 6.3.1

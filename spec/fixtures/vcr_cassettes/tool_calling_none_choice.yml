@@ -30,7 +30,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 08:01:40 GMT
+      - Wed, 20 Aug 2025 08:03:06 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -51,10 +51,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97205d30ad241e27-MSP
+      - 97205f4d8958ad0c-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755676899-wB56GrwzRnSLcz0WTHw4\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676899,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The
-        result of \\\\( 5 + 5 \\\\) is \\\\( 10 \\\\).\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":78,\"completion_tokens\":17,\"total_tokens\":95,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 08:01:40 GMT
+      string: "\n         \n{\"id\":\"gen-1755676986-RaSUOmnMeiN1tltaA6cH\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676986,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The
+        result of \\\\(5 + 5\\\\) is \\\\(10\\\\).\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":78,\"completion_tokens\":15,\"total_tokens\":93,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:03:07 GMT
 recorded_with: VCR 6.3.1

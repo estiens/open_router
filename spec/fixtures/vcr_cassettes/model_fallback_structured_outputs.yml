@@ -29,7 +29,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:47:14 GMT
+      - Wed, 20 Aug 2025 08:03:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -50,9 +50,9 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 9720480ea83b83b0-MSP
+      - 9720604f194efc89-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755676034-4uf2JAjVNUqqdDVeVbVm\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676034,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"greeting\\\":\\\"Hello!\\\",\\\"language\\\":\\\"English\\\"}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":61,\"completion_tokens\":11,\"total_tokens\":72,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:47:15 GMT
+      string: "\n         \n{\"id\":\"gen-1755677027-SYAVCL5bvpekgTtkwL35\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755677027,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"greeting\\\":\\\"Hello!\\\",\\\"language\\\":\\\"English\\\"}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":61,\"completion_tokens\":11,\"total_tokens\":72,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:03:48 GMT
 recorded_with: VCR 6.3.1

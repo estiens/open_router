@@ -30,7 +30,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 08:01:38 GMT
+      - Wed, 20 Aug 2025 08:03:06 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -51,9 +51,9 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97205d2558b7a1e8-MSP
+      - 97205f476ee57816-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n{\"id\":\"gen-1755676898-XoEt1Bb2GNjVZiqMwGJV\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676898,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_jraSST3FrD89coUXU8VKgUpw\",\"type\":\"function\",\"function\":{\"name\":\"calculator\",\"arguments\":\"{\\\"operation\\\":\\\"add\\\",\\\"a\\\":5,\\\"b\\\":3}\"}}]}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":71,\"completion_tokens\":22,\"total_tokens\":93,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 08:01:39 GMT
+      string: "\n         \n{\"id\":\"gen-1755676985-Vy7LYusTy6p9BNFdIbMw\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676985,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_4ls0KFbsKCRowoKUSRPM5puO\",\"type\":\"function\",\"function\":{\"name\":\"calculator\",\"arguments\":\"{\\\"operation\\\":\\\"add\\\",\\\"a\\\":5,\\\"b\\\":3}\"}}]}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":71,\"completion_tokens\":22,\"total_tokens\":93,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:03:06 GMT
 recorded_with: VCR 6.3.1

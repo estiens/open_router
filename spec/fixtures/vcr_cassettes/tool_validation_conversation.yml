@@ -30,7 +30,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:15:00 GMT
+      - Wed, 20 Aug 2025 08:03:17 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -51,17 +51,17 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018d60e29a1c5-MSP
+      - 97205f902b56a1e5-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755674100-Kfkz3IwmjjwYudmpo3iE\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755674100,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_0FLSxUaBd7ruLxb21QPiu7GJ\",\"type\":\"function\",\"function\":{\"name\":\"calculator\",\"arguments\":\"{\\\"operation\\\":\\\"add\\\",\\\"a\\\":8,\\\"b\\\":12}\"}}]}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":75,\"completion_tokens\":22,\"total_tokens\":97,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:15:00 GMT
+      string: "\n         \n\n         \n{\"id\":\"gen-1755676997-EdRkhHGqgjGfIC2OkQj4\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676997,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"tool_calls\",\"native_finish_reason\":\"tool_calls\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"\",\"refusal\":null,\"reasoning\":null,\"tool_calls\":[{\"index\":0,\"id\":\"call_S2wl6SdkqAiApSIdZQzXxZrN\",\"type\":\"function\",\"function\":{\"name\":\"calculator\",\"arguments\":\"{\\\"operation\\\":\\\"add\\\",\\\"a\\\":8,\\\"b\\\":12}\"}}]}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":75,\"completion_tokens\":22,\"total_tokens\":97,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:03:18 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
     body:
       encoding: UTF-8
-      string: '{"messages":[{"role":"user","content":"Calculate 8 + 12"},{"role":"assistant","content":"","tool_calls":[{"index":0,"id":"call_0FLSxUaBd7ruLxb21QPiu7GJ","type":"function","function":{"name":"calculator","arguments":"{\"operation\":\"add\",\"a\":8,\"b\":12}"}}]},{"role":"tool","tool_call_id":"call_0FLSxUaBd7ruLxb21QPiu7GJ","content":"20"},{"role":"user","content":"Now
+      string: '{"messages":[{"role":"user","content":"Calculate 8 + 12"},{"role":"assistant","content":"","tool_calls":[{"index":0,"id":"call_S2wl6SdkqAiApSIdZQzXxZrN","type":"function","function":{"name":"calculator","arguments":"{\"operation\":\"add\",\"a\":8,\"b\":12}"}}]},{"role":"tool","tool_call_id":"call_S2wl6SdkqAiApSIdZQzXxZrN","content":"20"},{"role":"user","content":"Now
         multiply that result by 3"}],"model":"openai/gpt-4o-mini","max_tokens":500}'
     headers:
       Authorization:
@@ -84,7 +84,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:15:01 GMT
+      - Wed, 20 Aug 2025 08:03:18 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -105,10 +105,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018da5c00accf-MSP
+      - 97205f97d8c97816-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755674100-hZf4uOoTE1EEoia0JvWW\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755674100,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The
-        result of \\\\(20\\\\) multiplied by \\\\(3\\\\) is \\\\(60\\\\).\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":54,\"completion_tokens\":18,\"total_tokens\":72,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:15:01 GMT
+      string: "\n         \n{\"id\":\"gen-1755676998-qKAKJzUdiojoJs2B2piX\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676998,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"20
+        multiplied by 3 is 60.\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":54,\"completion_tokens\":9,\"total_tokens\":63,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:03:19 GMT
 recorded_with: VCR 6.3.1

@@ -27,7 +27,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:20:27 GMT
+      - Wed, 20 Aug 2025 08:02:17 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 972020ced8f4a1fb-MSP
+      - 97205e168f13a1c7-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -56,7 +56,7 @@ http_interactions:
         ''invalid_type'' is not valid under any of the given schemas.\",\n    \"type\":
         \"invalid_request_error\",\n    \"param\": \"response_format\",\n    \"code\":
         null\n  }\n}","provider_name":"Azure"}},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Wed, 20 Aug 2025 07:20:27 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:17 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -84,7 +84,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:29:18 GMT
+      - Wed, 20 Aug 2025 08:02:18 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -105,10 +105,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97202dc28c371e27-MSP
+      - 97205e1e3af85114-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n{\"id\":\"gen-1755674957-xP96pAwy896U7Vm1njhb\",\"provider\":\"InferenceNet\",\"model\":\"meta-llama/llama-3.1-8b-instruct\",\"object\":\"chat.completion\",\"created\":1755674957,\"choices\":[{\"logprobs\":null,\"finish_reason\":null,\"native_finish_reason\":null,\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{
-        \         \\n\\n      \\\"message\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"\",\"usage\":{\"prompt_tokens\":8,\"completion_tokens\":6,\"total_tokens\":14}}"
-  recorded_at: Wed, 20 Aug 2025 07:29:18 GMT
+      string: "\n         \n\n         \n{\"id\":\"gen-1755676937-tPifmu02KHdqqcVG6Cbj\",\"provider\":\"InferenceNet\",\"model\":\"meta-llama/llama-3.1-8b-instruct\",\"object\":\"chat.completion\",\"created\":1755676937,\"choices\":[{\"logprobs\":null,\"finish_reason\":null,\"native_finish_reason\":null,\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{
+        \  \\\"message\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"\",\"usage\":{\"prompt_tokens\":8,\"completion_tokens\":4,\"total_tokens\":12}}"
+  recorded_at: Wed, 20 Aug 2025 08:02:19 GMT
 recorded_with: VCR 6.3.1

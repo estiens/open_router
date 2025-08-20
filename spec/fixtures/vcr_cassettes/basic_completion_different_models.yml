@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:19:48 GMT
+      - Wed, 20 Aug 2025 08:02:08 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,12 +48,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97201fdc9e7bacd6-MSP
+      - 97205dde0d00e895-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674387-M3ywbIB8vTNXQIiStdza","provider":"Anthropic","model":"anthropic/claude-3-haiku","object":"chat.completion","created":1755674387,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
+      string: '{"id":"gen-1755676927-7WlHzIQWGoPWoKYj3Arf","provider":"Anthropic","model":"anthropic/claude-3-haiku","object":"chat.completion","created":1755676927,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
         world!","refusal":null,"reasoning":null}}],"usage":{"prompt_tokens":10,"completion_tokens":7,"total_tokens":17}}'
-  recorded_at: Wed, 20 Aug 2025 07:19:48 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:08 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -81,7 +81,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:19:59 GMT
+      - Wed, 20 Aug 2025 08:02:08 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -102,10 +102,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972020243c145113-MSP
+      - 97205de15a98a1c5-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674399-x3fWGNqjdQ4xGdnAszGT","provider":"OpenAI","model":"openai/gpt-4o-mini","object":"chat.completion","created":1755674399,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
-        World!","refusal":null,"reasoning":null}}],"system_fingerprint":"fp_560af6e559","usage":{"prompt_tokens":10,"completion_tokens":4,"total_tokens":14,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Wed, 20 Aug 2025 07:19:59 GMT
+      string: '{"id":"gen-1755676928-rRI5ASisuTA622B4ouGh","provider":"OpenAI","model":"openai/gpt-4o-mini","object":"chat.completion","created":1755676928,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello,
+        world!","refusal":null,"reasoning":null}}],"system_fingerprint":"fp_560af6e559","usage":{"prompt_tokens":10,"completion_tokens":4,"total_tokens":14,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
+  recorded_at: Wed, 20 Aug 2025 08:02:08 GMT
 recorded_with: VCR 6.3.1

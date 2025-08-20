@@ -41,7 +41,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 08:01:21 GMT
+      - Wed, 20 Aug 2025 08:02:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -62,16 +62,15 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97205cb73f9bfc89-MSP
+      - 97205edadbbfa1ef-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1755676880-W5iil7fwfcCNvxfKL238\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676880,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
-        \ \\\"summary\\\": \\\"Ruby is a dynamic, object-oriented programming language
-        known for its simplicity and productivity.\\\",\\n  \\\"details\\\": {\\n
-        \   \\\"category\\\": \\\"Programming Language\\\",\\n    \\\"confidence\\\":
-        0.95,\\n    \\\"keywords\\\": [\\n      \\\"Ruby\\\",\\n      \\\"programming\\\",\\n
-        \     \\\"language\\\",\\n      \\\"dynamic\\\",\\n      \\\"object-oriented\\\",\\n
-        \     \\\"simplicity\\\",\\n      \\\"productivity\\\"\\n    ]\\n  },\\n  \\\"requires_followup\\\":
-        false\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":257,\"completion_tokens\":94,\"total_tokens\":351,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 08:01:22 GMT
+      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
+        \        \n\n         \n{\"id\":\"gen-1755676968-Klm0K9P6ZrCuFnyxykRP\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676968,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"{\\n
+        \ \\\"summary\\\": \\\"Ruby is a programming language known for its simplicity
+        and productivity.\\\",\\n  \\\"details\\\": {\\n    \\\"category\\\": \\\"Programming
+        Language\\\",\\n    \\\"confidence\\\": 0.95,\\n    \\\"keywords\\\": [\\\"Ruby\\\",
+        \\\"programming\\\", \\\"language\\\", \\\"simplicity\\\", \\\"productivity\\\"]\\n
+        \ },\\n  \\\"requires_followup\\\": false\\n}\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":257,\"completion_tokens\":73,\"total_tokens\":330,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:02:51 GMT
 recorded_with: VCR 6.3.1

@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:49 GMT
+      - Wed, 20 Aug 2025 08:02:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,12 +48,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 9720188ec95bad24-MSP
+      - 97205e063a5de02b-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755674088-Hcsv33XjCOePWmtZ7z9f\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755674088,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Hello!
-        How can I assist you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":8,\"completion_tokens\":9,\"total_tokens\":17,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:14:49 GMT
+      string: '{"id":"gen-1755676934-i1uVj0sak4HRheMNLx6S","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755676934,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"Hello!
+        How can I assist you today?","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":8,"completion_tokens":9,"total_tokens":17,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
+  recorded_at: Wed, 20 Aug 2025 08:02:14 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -81,7 +81,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:29:15 GMT
+      - Wed, 20 Aug 2025 08:02:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -89,7 +89,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 97202db78948510a-MSP
+      - 97205e09ee7ca1d9-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -107,7 +107,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"error":{"message":"Expected temperature to be at most 2, received
         5","code":400,"metadata":{"provider_name":null}}}'
-  recorded_at: Wed, 20 Aug 2025 07:29:15 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:14 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -135,7 +135,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:29:15 GMT
+      - Wed, 20 Aug 2025 08:02:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -143,7 +143,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 97202db8da88a1c7-MSP
+      - 97205e0aa811fc89-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -160,7 +160,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"error":{"message":"Input required: specify \"prompt\" or \"messages\"","code":400},"user_id":"user_2oXVHhLSnOmuZVA2xOTqDfGHofS"}'
-  recorded_at: Wed, 20 Aug 2025 07:29:15 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:14 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -188,7 +188,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:29:15 GMT
+      - Wed, 20 Aug 2025 08:02:14 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -196,7 +196,7 @@ http_interactions:
       Connection:
       - keep-alive
       Cf-Ray:
-      - 97202db9989ea225-MSP
+      - 97205e0b3b6be02b-MSP
       Access-Control-Allow-Origin:
       - "*"
       Vary:
@@ -213,5 +213,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"error":{"message":"Input must have at least 1 token.","code":400,"metadata":{"provider_name":null}}}'
-  recorded_at: Wed, 20 Aug 2025 07:29:15 GMT
+  recorded_at: Wed, 20 Aug 2025 08:02:14 GMT
 recorded_with: VCR 6.3.1

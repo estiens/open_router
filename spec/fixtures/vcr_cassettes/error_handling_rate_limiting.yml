@@ -27,7 +27,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:52 GMT
+      - Wed, 20 Aug 2025 08:02:20 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -48,12 +48,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018a26d8bacf3-MSP
+      - 97205e27f9c7a1e2-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674091-oqBfK4TeYBYsiaKBfoqg","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755674091,"choices":[{"logprobs":null,"finish_reason":"stop","native_finish_reason":"stop","index":0,"message":{"role":"assistant","content":"How
-        may I assist you today?","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":7,"total_tokens":17,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Wed, 20 Aug 2025 07:14:52 GMT
+      string: "\n         \n{\"id\":\"gen-1755676939-CTHBuqGsWRhPtccoGjDi\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755676939,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"How
+        can I assist you today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":10,\"completion_tokens\":7,\"total_tokens\":17,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:02:20 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -81,7 +81,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:52 GMT
+      - Wed, 20 Aug 2025 08:02:20 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -102,12 +102,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018a5eae5ad18-MSP
+      - 97205e2e7fcbacd6-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674092-dl45UKj0rciiwdaKBTo8","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755674092,"choices":[{"logprobs":null,"finish_reason":"length","native_finish_reason":"length","index":0,"message":{"role":"assistant","content":"Could
-        you please provide examples of your previous completed projects","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":10,"total_tokens":20,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Wed, 20 Aug 2025 07:14:52 GMT
+      string: '{"id":"gen-1755676940-XdyC3dIHlv5Od2fZCq4B","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755676940,"choices":[{"logprobs":null,"finish_reason":"length","native_finish_reason":"length","index":0,"message":{"role":"assistant","content":"I
+        would like to inquire about the status of my","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":10,"total_tokens":20,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
+  recorded_at: Wed, 20 Aug 2025 08:02:21 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -135,7 +135,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:53 GMT
+      - Wed, 20 Aug 2025 08:02:21 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -156,12 +156,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018aaab8be892-MSP
+      - 97205e32bd237816-MSP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"gen-1755674093-0EwsWrYb85QRxgfHdLUX","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755674093,"choices":[{"logprobs":null,"finish_reason":"length","native_finish_reason":"length","index":0,"message":{"role":"assistant","content":"Could
-        you provide me with the latest sales report for","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":10,"total_tokens":20,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
-  recorded_at: Wed, 20 Aug 2025 07:14:53 GMT
+      string: "\n         \n{\"id\":\"gen-1755676941-qZTi3nIskTeWsjIJXGge\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755676941,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reason\":\"length\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Can
+        you please provide an update on the status of\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":10,\"completion_tokens\":10,\"total_tokens\":20,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:02:21 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -189,7 +189,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:54 GMT
+      - Wed, 20 Aug 2025 08:02:22 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -210,12 +210,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018ae1acce895-MSP
+      - 97205e373b6bacd5-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n{\"id\":\"gen-1755674093-eAUcXXmrhOUR0OqDIrPi\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755674094,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reason\":\"length\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Can
-        you please provide an updated list of the products\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":10,\"completion_tokens\":10,\"total_tokens\":20,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:14:54 GMT
+      string: '{"id":"gen-1755676941-c0TZMzz5Vx8wMylUuMO7","provider":"OpenAI","model":"openai/gpt-3.5-turbo","object":"chat.completion","created":1755676941,"choices":[{"logprobs":null,"finish_reason":"length","native_finish_reason":"length","index":0,"message":{"role":"assistant","content":"Can
+        you please provide a detailed breakdown of the costs","refusal":null,"reasoning":null}}],"system_fingerprint":null,"usage":{"prompt_tokens":10,"completion_tokens":10,"total_tokens":20,"prompt_tokens_details":{"cached_tokens":0,"audio_tokens":0},"completion_tokens_details":{"reasoning_tokens":0}}}'
+  recorded_at: Wed, 20 Aug 2025 08:02:22 GMT
 - request:
     method: post
     uri: https://openrouter.ai/api/v1/chat/completions
@@ -243,7 +243,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 07:14:55 GMT
+      - Wed, 20 Aug 2025 08:02:23 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -264,10 +264,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 972018b34b594c9d-MSP
+      - 97205e3b0f1a4c9a-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n{\"id\":\"gen-1755674094-eACiOWBcdd3SlIfMYqhP\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755674094,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reason\":\"length\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Can
-        you please provide me with more information about the\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":10,\"completion_tokens\":10,\"total_tokens\":20,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 07:14:55 GMT
+      string: "\n         \n{\"id\":\"gen-1755676942-IYofgZJvkobOySsIwXqG\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-3.5-turbo\",\"object\":\"chat.completion\",\"created\":1755676942,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reason\":\"length\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Sure,
+        what can I assist you with today?\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":null,\"usage\":{\"prompt_tokens\":10,\"completion_tokens\":10,\"total_tokens\":20,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
+  recorded_at: Wed, 20 Aug 2025 08:02:23 GMT
 recorded_with: VCR 6.3.1

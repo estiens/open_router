@@ -40,7 +40,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 20 Aug 2025 08:01:24 GMT
+      - Wed, 20 Aug 2025 08:03:50 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -61,13 +61,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 97205cc5f89b5120-MSP
+      - 97206057aa2ca1c5-MSP
     body:
       encoding: ASCII-8BIT
-      string: "\n         \n\n         \n\n         \n\n         \n\n         \n\n
-        \        \n\n         \n{\"id\":\"gen-1755676882-qpolAGv5bHjk3W8lVlK9\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755676882,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\\"tasks\\\":[{\\\"title\\\":\\\"writing
+      string: "\n         \n\n         \n\n         \n{\"id\":\"gen-1755677029-ZNmdxDZLkzmyaoLc5iBU\",\"provider\":\"OpenAI\",\"model\":\"openai/gpt-4o-mini\",\"object\":\"chat.completion\",\"created\":1755677029,\"choices\":[{\"logprobs\":null,\"finish_reason\":\"stop\",\"native_finish_reason\":\"stop\",\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"```json\\n{\\\"tasks\\\":[{\\\"title\\\":\\\"writing
         documentation\\\",\\\"priority\\\":\\\"high\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"testing
         code\\\",\\\"priority\\\":\\\"medium\\\",\\\"completed\\\":false},{\\\"title\\\":\\\"reviewing
         pull request\\\",\\\"priority\\\":\\\"low\\\",\\\"completed\\\":false}],\\\"total_count\\\":3}\\n```\",\"refusal\":null,\"reasoning\":null}}],\"system_fingerprint\":\"fp_560af6e559\",\"usage\":{\"prompt_tokens\":247,\"completion_tokens\":55,\"total_tokens\":302,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"completion_tokens_details\":{\"reasoning_tokens\":0}}}"
-  recorded_at: Wed, 20 Aug 2025 08:01:25 GMT
+  recorded_at: Wed, 20 Aug 2025 08:03:50 GMT
 recorded_with: VCR 6.3.1
