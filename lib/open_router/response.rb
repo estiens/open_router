@@ -177,6 +177,55 @@ module OpenRouter
       @raw_response["object"]
     end
 
+    # Provider information
+    def provider
+      @raw_response["provider"]
+    end
+
+    # System fingerprint (model version identifier)
+    def system_fingerprint
+      @raw_response["system_fingerprint"]
+    end
+
+    # Native finish reason from the provider
+    def native_finish_reason
+      choices.first&.dig("native_finish_reason")
+    end
+
+    # Finish reason (standard OpenRouter format)
+    def finish_reason
+      choices.first&.dig("finish_reason")
+    end
+
+    # Cached tokens (tokens served from cache)
+    def cached_tokens
+      usage&.dig("prompt_tokens_details", "cached_tokens") || 0
+    end
+
+    # Total prompt tokens
+    def prompt_tokens
+      usage&.dig("prompt_tokens") || 0
+    end
+
+    # Total completion tokens
+    def completion_tokens
+      usage&.dig("completion_tokens") || 0
+    end
+
+    # Total tokens (prompt + completion)
+    def total_tokens
+      usage&.dig("total_tokens") || 0
+    end
+
+    # Get estimated cost for this response
+    # Note: This requires an additional API call to /generation endpoint
+    def cost_estimate
+      return nil unless id && client
+      @cost_estimate ||= client.query_generation_stats(id)&.dig("cost")
+    rescue StandardError
+      nil
+    end
+
     # Convenience method to check if response has content
     def has_content?
       !content.nil? && !content.empty?

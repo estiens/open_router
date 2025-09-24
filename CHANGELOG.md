@@ -1,15 +1,26 @@
 ## [Unreleased]
 
 ### Added
-- Performance optimization improvements for model selection
-- Additional validation for model capability detection
-- Enhanced error messages for debugging
+- **Prompt Templates**: Reusable prompt templates with variable interpolation and few-shot learning support
+- **Streaming Client**: Enhanced streaming client with comprehensive callback system and response reconstruction
+- **Usage Tracking**: Comprehensive token usage and cost tracking with performance analytics
+- **Response Analytics**: Detailed response metadata including tokens, costs, cache hits, and performance metrics
+- **Callback System**: Extensible event system for monitoring requests, responses, tools, and errors
+- **Cost Management**: Built-in cost estimation and budget constraint features
+- **Performance Optimization**: Batching, parallelization, and memory management utilities
+- **Debug Mode**: Comprehensive debugging and troubleshooting utilities
 
 ### Changed
-- Improved test organization and coverage
+- **Enhanced Client**: Added comprehensive callback system with events for requests, responses, tools, and errors
+- **Streaming Improvements**: Complete rewrite of streaming client with proper event handling and response accumulation
+- **Response Object**: Extended with detailed analytics, cost information, and performance metrics
+- **Documentation**: Massive documentation overhaul with comprehensive examples and troubleshooting guides
+- **API Reference**: Complete API reference with all classes, methods, and configuration options
 
 ### Fixed
-- Minor bug fixes in response healing edge cases
+- **Streaming Edge Cases**: Fixed various edge cases in streaming response handling
+- **Memory Management**: Improved memory usage for long-running applications
+- **Error Reporting**: Enhanced error messages with better debugging information
 
 ## [0.3.3] - 2024-12-XX
 

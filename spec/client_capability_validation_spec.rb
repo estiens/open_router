@@ -96,7 +96,7 @@ RSpec.describe "OpenRouter Client Capability Validation" do
       end.to raise_error(Faraday::UnauthorizedError)
     end
 
-    xit "doesn't show warnings when model supports the feature" do
+    it "doesn't show warnings when model supports the feature" do
       # Only API error, no warning
       expect do
         expect do
@@ -117,7 +117,7 @@ RSpec.describe "OpenRouter Client Capability Validation" do
       end
     end
 
-    xit "raises CapabilityError for unsupported tool calling" do
+    it "raises CapabilityError for unsupported tool calling" do
       expect do
         client.complete(
           [{ role: "user", content: "Hello" }],
@@ -127,7 +127,7 @@ RSpec.describe "OpenRouter Client Capability Validation" do
       end.to raise_error(OpenRouter::CapabilityError, /tool calling.*missing :function_calling/)
     end
 
-    xit "raises CapabilityError for unsupported structured outputs" do
+    it "raises CapabilityError for unsupported structured outputs" do
       expect do
         client.complete(
           [{ role: "user", content: "Hello" }],

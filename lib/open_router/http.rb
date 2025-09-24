@@ -64,7 +64,14 @@ module OpenRouter
     def to_json_stream(user_proc:)
       proc do |chunk, _|
         chunk.scan(/(?:data|error): (\{.*\})/i).flatten.each do |data|
-          user_proc.call(JSON.parse(data))
+          parsed_chunk = JSON.parse(data)
+
+          # Trigger on_stream_chunk callback if available
+          if respond_to?(:trigger_callbacks)
+            trigger_callbacks(:on_stream_chunk, parsed_chunk)
+          end
+
+          user_proc.call(parsed_chunk)
         rescue JSON::ParserError
           # Ignore invalid JSON.
         end

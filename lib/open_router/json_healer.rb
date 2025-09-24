@@ -92,6 +92,17 @@ module OpenRouter
       healer_model = @configuration.healer_model
       prompt = build_healing_prompt(broken_json, schema, error_reason, error_class, original_content, context)
 
+      # Trigger on_healing callback with healing context
+      if @client.respond_to?(:trigger_callbacks)
+        @client.trigger_callbacks(:on_healing, {
+          broken_json: broken_json,
+          error: error_reason,
+          schema: schema,
+          healer_model: healer_model,
+          context: context
+        })
+      end
+
       healing_response = @client.complete(
         [{ role: "user", content: prompt }],
         model: healer_model,
@@ -100,11 +111,32 @@ module OpenRouter
 
       # The healer's response is now our new best candidate.
       # We extract it again in case the healer also added fluff.
-      extract_json_candidate(healing_response.content)
+      healed_json = extract_json_candidate(healing_response.content)
+
+      # Trigger callback with healing result
+      if @client.respond_to?(:trigger_callbacks)
+        @client.trigger_callbacks(:on_healing, {
+          healed: true,
+          original: broken_json,
+          result: healed_json
+        })
+      end
+
+      healed_json
     rescue StandardError => e
       # If the healing call itself fails, we can't proceed.
       # Return the original broken content to let the loop fail naturally.
       warn "[OpenRouter Warning] JSON healing request failed: #{e.message}"
+
+      # Trigger callback for failed healing
+      if @client.respond_to?(:trigger_callbacks)
+        @client.trigger_callbacks(:on_healing, {
+          healed: false,
+          error: e.message,
+          original: broken_json
+        })
+      end
+
       broken_json
     end
 

@@ -12,8 +12,10 @@ module OpenRouter
   class Client
     include OpenRouter::HTTP
 
+    attr_reader :callbacks, :usage_tracker
+
     # Initializes the client with optional configurations.
-    def initialize(access_token: nil, request_timeout: nil, uri_base: nil, extra_headers: {})
+    def initialize(access_token: nil, request_timeout: nil, uri_base: nil, extra_headers: {}, track_usage: true)
       OpenRouter.configuration.access_token = access_token if access_token
       OpenRouter.configuration.request_timeout = request_timeout if request_timeout
       OpenRouter.configuration.uri_base = uri_base if uri_base
@@ -22,10 +24,70 @@ module OpenRouter
 
       # Instance-level tracking of capability warnings to avoid memory leaks
       @capability_warnings_shown = Set.new
+
+      # Initialize callback system
+      @callbacks = {
+        before_request: [],
+        after_response: [],
+        on_tool_call: [],
+        on_error: [],
+        on_stream_chunk: [],
+        on_healing: []
+      }
+
+      # Initialize usage tracking
+      @track_usage = track_usage
+      @usage_tracker = UsageTracker.new if @track_usage
     end
 
     def configuration
       OpenRouter.configuration
+    end
+
+    # Register a callback for a specific event
+    #
+    # @param event [Symbol] The event to register for (:before_request, :after_response, :on_tool_call, :on_error, :on_stream_chunk, :on_healing)
+    # @param block [Proc] The callback to execute
+    # @return [self] Returns self for method chaining
+    #
+    # @example
+    #   client.on(:after_response) do |response|
+    #     puts "Used #{response.total_tokens} tokens"
+    #   end
+    def on(event, &block)
+      unless @callbacks.key?(event)
+        raise ArgumentError, "Invalid event: #{event}. Valid events are: #{@callbacks.keys.join(', ')}"
+      end
+
+      @callbacks[event] << block
+      self
+    end
+
+    # Remove all callbacks for a specific event
+    #
+    # @param event [Symbol] The event to clear callbacks for
+    # @return [self] Returns self for method chaining
+    def clear_callbacks(event = nil)
+      if event
+        @callbacks[event] = [] if @callbacks.key?(event)
+      else
+        @callbacks.each_key { |key| @callbacks[key] = [] }
+      end
+      self
+    end
+
+    # Trigger callbacks for a specific event
+    #
+    # @param event [Symbol] The event to trigger
+    # @param data [Object] Data to pass to the callbacks
+    def trigger_callbacks(event, data = nil)
+      return unless @callbacks[event]
+
+      @callbacks[event].each do |callback|
+        callback.call(data)
+      rescue StandardError => e
+        warn "[OpenRouter] Callback error for #{event}: #{e.message}"
+      end
     end
 
     # Performs a chat completion request to the OpenRouter API.
@@ -45,10 +107,24 @@ module OpenRouter
       forced_extraction = configure_tools_and_structured_outputs!(parameters, model, tools, tool_choice, response_format, force_structured_output)
       validate_vision_support(model, messages)
 
+      # Trigger before_request callbacks
+      trigger_callbacks(:before_request, parameters)
+
       raw_response = execute_request(parameters)
       validate_response!(raw_response, stream)
 
-      build_response(raw_response, response_format, forced_extraction)
+      response = build_response(raw_response, response_format, forced_extraction)
+
+      # Track usage if enabled
+      @usage_tracker&.track(response, model: model.is_a?(String) ? model : model.first)
+
+      # Trigger after_response callbacks
+      trigger_callbacks(:after_response, response)
+
+      # Trigger on_tool_call callbacks if tool calls are present
+      trigger_callbacks(:on_tool_call, response.tool_calls) if response.has_tool_calls?
+
+      response
     end
 
     # Fetches the list of available models from the OpenRouter API.
@@ -294,8 +370,10 @@ module OpenRouter
     def execute_request(parameters)
       post(path: "/chat/completions", parameters: parameters)
     rescue ConfigurationError => e
+      trigger_callbacks(:on_error, e)
       raise ServerError, e.message
     rescue Faraday::Error => e
+      trigger_callbacks(:on_error, e)
       handle_faraday_error(e)
     end
 

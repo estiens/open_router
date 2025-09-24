@@ -24,7 +24,10 @@ require_relative "open_router/json_healer"
 require_relative "open_router/response"
 require_relative "open_router/model_registry"
 require_relative "open_router/model_selector"
+require_relative "open_router/prompt_template"
+require_relative "open_router/usage_tracker"
 require_relative "open_router/client"
+require_relative "open_router/streaming_client"
 require_relative "open_router/version"
 
 module OpenRouter
